@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Produto {
+  id              String   @id @default(cuid())
+  nome            String
+  descricao       String
+  descricaoLonga  String?  @db.Text
+  icone           String?
+  imagem          String?
+  imagens         String[] @default([])
+  link            String?
+  tecnologias     String[] @default([])
+  destaque        Boolean  @default(false)
+  ordem           Int      @default(0)
+  ativo           Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Cliente {
+  id          String   @id @default(cuid())
+  nome        String
+  logo        String?
+  site        String?
+  descricao   String?
+  ordem       Int      @default(0)
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Depoimento {
+  id          String   @id @default(cuid())
+  nome        String
+  cargo       String
+  empresa     String
+  texto       String
+  avatar      String?
+  nota        Int      @default(5)
+  ordem       Int      @default(0)
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

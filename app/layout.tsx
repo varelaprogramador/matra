@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ptBR } from "@clerk/localizations";
 import "./globals.css";
 
 const inter = Inter({
@@ -55,12 +57,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      <body
-        className={`${inter.variable} font-sans antialiased bg-black text-white`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider localization={ptBR}>
+      <html lang="pt-BR" className="scroll-smooth">
+        <body
+          className={`${inter.variable} font-sans antialiased bg-black text-white`}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
