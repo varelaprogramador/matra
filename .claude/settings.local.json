@@ -7,7 +7,9 @@
       "Bash(npx prisma init)",
       "Bash(npx prisma generate:*)",
       "Bash(npx prisma db push:*)",
-      "Bash(npm i:*)"
+      "Bash(npm i:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

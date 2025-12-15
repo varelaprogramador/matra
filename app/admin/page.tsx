@@ -8,8 +8,17 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import type { Produto, Cliente } from "@prisma/client";
 
-async function getStats() {
+interface Stats {
+  produtos: number;
+  clientes: number;
+  depoimentos: number;
+  recentProdutos: Produto[];
+  recentClientes: Cliente[];
+}
+
+async function getStats(): Promise<Stats> {
   const [produtos, clientes, depoimentos, recentProdutos, recentClientes] =
     await Promise.all([
       prisma.produto.count({ where: { ativo: true } }),
