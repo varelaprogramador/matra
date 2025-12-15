@@ -13,7 +13,7 @@ const stats = [
 
 export function About() {
   return (
-    <section id="sobre" className="relative bg-black py-32">
+    <section id="sobre" className="relative bg-black py-16 min-h-[50vh]">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:32px_32px]" />
 

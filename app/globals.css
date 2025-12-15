@@ -33,6 +33,24 @@ body {
   overflow-x: hidden;
 }
 
+/* Scroll Snap Container */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+/* Scroll Snap Section */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Selection */
 ::selection {
   background: rgba(255, 255, 255, 0.2);

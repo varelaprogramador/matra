@@ -39,7 +39,7 @@ const projectHighlights = [
 
 export function Testimonials() {
   return (
-    <section id="depoimentos" className="relative bg-black py-32">
+    <section id="depoimentos" className="relative bg-black py-16 flex items-center min-h-screen">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent" />
 

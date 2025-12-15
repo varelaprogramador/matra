@@ -128,7 +128,7 @@ const services = [
 
 export function Services() {
   return (
-    <section id="servicos" className="relative bg-black py-32">
+    <section id="servicos" className="relative bg-black py-16 flex items-center min-h-screen">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
 

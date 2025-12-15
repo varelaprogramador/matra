@@ -19,7 +19,7 @@ const stats = [
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black">
+    <section className="relative h-screen overflow-hidden bg-black">
       {/* 3D Background */}
       <div className="absolute inset-0 opacity-60">
         <AbstractShape />
@@ -30,7 +30,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 text-center lg:px-8">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center lg:px-8">
         {/* Logo Badge */}
         <FadeIn delay={0.1}>
           <motion.div

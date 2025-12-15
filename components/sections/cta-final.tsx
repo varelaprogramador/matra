@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 
 export function CTAFinal() {
   return (
-    <section id="contato" className="relative bg-black py-32">
+    <section id="contato" className="relative bg-black py-16 flex items-center min-h-screen">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-t from-white/[0.03] to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,transparent_70%)]" />

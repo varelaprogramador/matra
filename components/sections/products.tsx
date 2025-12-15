@@ -47,7 +47,7 @@ const otherProducts = [
 
 export function Products() {
   return (
-    <section id="produtos" className="relative bg-black py-32">
+    <section id="produtos" className="relative bg-black py-16 flex items-center min-h-screen">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] via-transparent to-white/[0.02]" />
 
