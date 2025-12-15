@@ -63,7 +63,7 @@ function ProductModal({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4"
       onClick={onClose}
     >
       {/* Modal Content */}
@@ -73,7 +73,7 @@ function ProductModal({
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl"
+        className="relative max-h-[95vh] sm:max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl"
       >
         {/* Close Button - Inside modal */}
         <button
@@ -82,13 +82,13 @@ function ProductModal({
             e.stopPropagation();
             onClose();
           }}
-          className="absolute right-4 top-4 z-50 rounded-full border border-white/20 bg-black/50 p-3 text-white/70 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70 hover:text-white"
+          className="absolute right-2 sm:right-4 top-2 sm:top-4 z-50 rounded-full border border-white/20 bg-black/50 p-2 sm:p-3 text-white/70 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70 hover:text-white"
         >
-          <X className="h-6 w-6" />
+          <X className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
         {/* Hero Image / Gallery */}
         {allImages.length > 0 ? (
-          <div className="relative h-[400px] w-full overflow-hidden">
+          <div className="relative h-[200px] sm:h-[300px] md:h-[400px] w-full overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentImageIndex}
@@ -103,33 +103,33 @@ function ProductModal({
             </AnimatePresence>
 
             {/* Image Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
 
             {/* Navigation Arrows */}
             {allImages.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
                 </button>
 
                 {/* Image Indicators */}
-                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                <div className="absolute bottom-3 sm:bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 sm:gap-2">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`h-2 w-2 rounded-full transition-all ${
+                      className={`h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full transition-all ${
                         index === currentImageIndex
-                          ? "bg-white w-6"
+                          ? "bg-white w-4 sm:w-6"
                           : "bg-white/40 hover:bg-white/60"
                       }`}
                     />
@@ -140,30 +140,30 @@ function ProductModal({
 
             {/* Icon Overlay */}
             {produto.icone && (
-              <div className="absolute bottom-6 left-8">
-                <span className="text-6xl drop-shadow-2xl">{produto.icone}</span>
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8">
+                <span className="text-4xl sm:text-6xl drop-shadow-2xl">{produto.icone}</span>
               </div>
             )}
           </div>
         ) : (
-          <div className="relative flex h-[300px] items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
+          <div className="relative flex h-[150px] sm:h-[200px] md:h-[300px] items-center justify-center bg-linear-to-br from-white/5 to-transparent">
             {produto.icone && (
-              <span className="text-8xl opacity-50">{produto.icone}</span>
+              <span className="text-5xl sm:text-7xl md:text-8xl opacity-50">{produto.icone}</span>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
           </div>
         )}
 
         {/* Content */}
-        <div className="relative px-8 pb-8 pt-4">
+        <div className="relative px-4 sm:px-6 md:px-8 pb-6 sm:pb-8 pt-3 sm:pt-4">
           {/* Header */}
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
             <div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-4xl font-bold text-white"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white"
               >
                 {produto.nome}
               </motion.h2>
@@ -171,7 +171,7 @@ function ProductModal({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mt-2 text-lg text-white/60"
+                className="mt-1.5 sm:mt-2 text-sm sm:text-base md:text-lg text-white/60"
               >
                 {produto.descricao}
               </motion.p>
@@ -185,7 +185,7 @@ function ProductModal({
                 href={produto.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/20"
+                className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/20 w-full sm:w-auto"
               >
                 Acessar
                 <ExternalLink className="h-4 w-4" />
@@ -199,16 +199,16 @@ function ProductModal({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mt-6"
+              className="mt-4 sm:mt-6"
             >
-              <p className="mb-3 text-sm font-medium uppercase tracking-wider text-white/40">
+              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
                 Tecnologias
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {produto.tecnologias.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/70"
+                    className="rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm text-white/70"
                   >
                     {tech}
                   </span>
@@ -223,13 +223,13 @@ function ProductModal({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="mt-8"
+              className="mt-6 sm:mt-8"
             >
-              <p className="mb-3 text-sm font-medium uppercase tracking-wider text-white/40">
+              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
                 Sobre o Projeto
               </p>
               <div className="prose prose-invert max-w-none">
-                <p className="whitespace-pre-wrap text-white/70 leading-relaxed">
+                <p className="whitespace-pre-wrap text-sm sm:text-base text-white/70 leading-relaxed">
                   {produto.descricaoLonga}
                 </p>
               </div>
@@ -242,19 +242,19 @@ function ProductModal({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="mt-8"
+              className="mt-6 sm:mt-8"
             >
-              <p className="mb-3 text-sm font-medium uppercase tracking-wider text-white/40">
+              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
                 Galeria
               </p>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
                 {allImages.map((img, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`relative aspect-video overflow-hidden rounded-lg transition-all ${
+                    className={`relative aspect-video overflow-hidden rounded-md sm:rounded-lg transition-all ${
                       index === currentImageIndex
-                        ? "ring-2 ring-white ring-offset-2 ring-offset-zinc-950"
+                        ? "ring-2 ring-white ring-offset-1 sm:ring-offset-2 ring-offset-zinc-950"
                         : "opacity-60 hover:opacity-100"
                     }`}
                   >

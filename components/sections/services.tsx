@@ -128,25 +128,25 @@ const services = [
 
 export function Services() {
   return (
-    <section id="servicos" className="relative bg-black py-16 flex items-center min-h-screen">
+    <section id="servicos" className="relative bg-black py-12 sm:py-16 flex items-center min-h-screen">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-white/2 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn>
-            <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
+            <span className="mb-3 sm:mb-4 inline-block text-xs sm:text-sm font-medium uppercase tracking-widest text-white/40">
               Servicos
             </span>
           </FadeIn>
           <Reveal delay={0.1}>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
               O que fazemos
             </h2>
           </Reveal>
           <FadeIn delay={0.2}>
-            <p className="mt-4 text-lg text-white/50">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-white/50">
               Desenvolvimento e marketing que geram resultado.
             </p>
           </FadeIn>
@@ -155,7 +155,7 @@ export function Services() {
         {/* Services Grid */}
         <StaggerContainer
           staggerDelay={0.15}
-          className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 sm:mt-16 md:mt-20 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
         >
           {services.map((service) => (
             <motion.div
@@ -164,39 +164,39 @@ export function Services() {
               className="group relative"
             >
               <motion.div
-                className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-all duration-500"
+                className="relative h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/2 p-4 sm:p-6 transition-all duration-500"
                 whileHover={{
                   borderColor: "rgba(255,255,255,0.2)",
                   backgroundColor: "rgba(255,255,255,0.04)",
                 }}
               >
                 {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                 {/* Content */}
                 <div className="relative">
                   {/* Icon */}
-                  <div className="mb-5 inline-flex rounded-xl border border-white/10 bg-white/5 p-3 text-white">
+                  <div className="mb-4 sm:mb-5 inline-flex rounded-lg sm:rounded-xl border border-white/10 bg-white/5 p-2 sm:p-3 text-white">
                     {service.icon}
                   </div>
 
                   {/* Title */}
-                  <h3 className="mb-3 text-lg font-semibold text-white">
+                  <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold text-white">
                     {service.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="mb-5 text-sm text-white/50">{service.description}</p>
+                  <p className="mb-4 sm:mb-5 text-xs sm:text-sm text-white/50">{service.description}</p>
 
                   {/* Features */}
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5 sm:space-y-2">
                     {service.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-center gap-2 text-xs text-white/40"
+                        className="flex items-center gap-2 text-[10px] sm:text-xs text-white/40"
                       >
                         <svg
-                          className="h-3 w-3 text-white/30"
+                          className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white/30 shrink-0"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

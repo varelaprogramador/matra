@@ -180,3 +180,37 @@ export async function getDepoimentosAtivos() {
     return fallbackDepoimentos;
   }
 }
+
+const fallbackEquipe = [
+  {
+    id: "1",
+    nome: "Equipe MATRA",
+    cargo: "Desenvolvimento",
+    descricao: "Nossa equipe de desenvolvimento trabalha com as mais modernas tecnologias para entregar solucoes de alta qualidade.",
+    foto: null,
+    linkedin: null,
+    github: null,
+    email: null,
+    ordem: 0,
+    ativo: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+export async function getMembrosEquipeAtivos() {
+  if (!process.env.DATABASE_URL) {
+    return fallbackEquipe;
+  }
+
+  try {
+    const { prisma } = await import("./prisma");
+    const membros = await prisma.membroEquipe.findMany({
+      where: { ativo: true },
+      orderBy: { ordem: "asc" },
+    });
+    return membros.length > 0 ? membros : fallbackEquipe;
+  } catch {
+    return fallbackEquipe;
+  }
+}

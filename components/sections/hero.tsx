@@ -46,11 +46,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center lg:px-8">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-4 sm:px-6 text-center lg:px-8">
         {/* Logo Badge */}
         <FadeIn delay={0.1}>
           <motion.div
-            className="mb-8 flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm"
+            className="mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 backdrop-blur-sm"
             whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.2)" }}
           >
             <Image
@@ -58,9 +58,9 @@ export function Hero() {
               alt="MATRA"
               width={28}
               height={28}
-              className="h-7 w-7"
+              className="h-6 w-6 sm:h-7 sm:w-7"
             />
-            <span className="text-sm font-medium text-white/80">
+            <span className="text-xs sm:text-sm font-medium text-white/80">
               MATRA Tecnologia & Marketing
             </span>
           </motion.div>
@@ -68,9 +68,9 @@ export function Hero() {
 
         {/* Headline */}
         <FadeIn delay={0.2}>
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="max-w-4xl text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Construimos
-            <span className="relative mx-3 inline-block">
+            <span className="relative mx-1 sm:mx-2 md:mx-3 inline-block">
               <span className="relative z-10">tecnologia</span>
               <motion.span
                 className="absolute -inset-1 -z-10 rounded-lg bg-white/10"
@@ -85,7 +85,7 @@ export function Hero() {
 
         {/* Subheadline */}
         <FadeIn delay={0.3}>
-          <p className="mt-6 max-w-2xl text-lg text-white/50 sm:text-xl">
+          <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-white/50 px-2">
             11 produtos SaaS proprios. Sistemas com blockchain e IA.
             Landing pages de alta conversao.
           </p>
@@ -93,7 +93,7 @@ export function Hero() {
 
         {/* Stats Row */}
         <FadeIn delay={0.35}>
-          <div className="mt-8 flex items-center gap-8">
+          <div className="mt-6 sm:mt-8 flex items-center gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -102,10 +102,10 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1 }}
               >
-                <div className="text-3xl font-bold text-white sm:text-4xl">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                   {stat.value}
                 </div>
-                <div className="text-xs text-white/40 uppercase tracking-wider">
+                <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">
                   {stat.label}
                 </div>
               </motion.div>
@@ -115,8 +115,8 @@ export function Hero() {
 
         {/* CTAs */}
         <FadeIn delay={0.4}>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button size="lg" href="#contato">
+          <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:gap-4 sm:flex-row w-full sm:w-auto px-4 sm:px-0">
+            <Button size="lg" href="#contato" className="w-full sm:w-auto">
               Iniciar Projeto
               <svg
                 className="ml-2 h-4 w-4"
@@ -132,7 +132,7 @@ export function Hero() {
                 />
               </svg>
             </Button>
-            <Button variant="secondary" size="lg" href="#produtos">
+            <Button variant="secondary" size="lg" href="#produtos" className="w-full sm:w-auto">
               Conhecer Produtos
             </Button>
           </div>
@@ -140,17 +140,17 @@ export function Hero() {
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
           <motion.div
-            className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-2"
+            className="flex h-8 sm:h-10 w-5 sm:w-6 items-start justify-center rounded-full border border-white/20 p-1.5 sm:p-2"
             animate={{ y: [0, 5, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           >
-            <motion.div className="h-2 w-1 rounded-full bg-white/60" />
+            <motion.div className="h-1.5 sm:h-2 w-0.5 sm:w-1 rounded-full bg-white/60" />
           </motion.div>
         </motion.div>
       </div>

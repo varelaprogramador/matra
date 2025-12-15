@@ -6,6 +6,7 @@ import { Services } from "@/components/sections/services";
 import { ProductsDynamic } from "@/components/sections/products-dynamic";
 import { Differentials } from "@/components/sections/differentials";
 import { Process } from "@/components/sections/process";
+import { TeamDynamic } from "@/components/sections/team-dynamic";
 import { TestimonialsDynamic } from "@/components/sections/testimonials-dynamic";
 import { CTAFinal } from "@/components/sections/cta-final";
 import { Footer } from "@/components/sections/footer";
@@ -15,14 +16,16 @@ import {
   getProdutosAtivos,
   getClientesAtivos,
   getDepoimentosAtivos,
+  getMembrosEquipeAtivos,
 } from "@/lib/data";
 
 export default async function Home() {
   // Fetch data from database
-  const [produtos, clientes, depoimentos] = await Promise.all([
+  const [produtos, clientes, depoimentos, membrosEquipe] = await Promise.all([
     getProdutosAtivos(),
     getClientesAtivos(),
     getDepoimentosAtivos(),
+    getMembrosEquipeAtivos(),
   ]);
 
   const sections = [
@@ -54,6 +57,10 @@ export default async function Home() {
     {
       id: "processo",
       component: <Process />,
+    },
+    {
+      id: "equipe",
+      component: <TeamDynamic membros={membrosEquipe} />,
     },
     {
       id: "depoimentos",

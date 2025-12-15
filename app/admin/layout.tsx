@@ -9,6 +9,7 @@ import {
   Users,
   MessageSquare,
   ChevronLeft,
+  UserCircle,
 } from "lucide-react";
 
 const navigation = [
@@ -16,6 +17,7 @@ const navigation = [
   { name: "Produtos", href: "/admin/produtos", icon: Package },
   { name: "Clientes", href: "/admin/clientes", icon: Users },
   { name: "Depoimentos", href: "/admin/depoimentos", icon: MessageSquare },
+  { name: "Equipe", href: "/admin/equipe", icon: UserCircle },
 ];
 
 export default function AdminLayout({
