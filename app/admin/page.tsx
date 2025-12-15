@@ -8,7 +8,35 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import type { Produto, Cliente } from "@prisma/client";
+
+interface Produto {
+  id: string;
+  nome: string;
+  descricao: string;
+  descricaoLonga: string | null;
+  icone: string | null;
+  imagem: string | null;
+  imagens: string[];
+  link: string | null;
+  tecnologias: string[];
+  destaque: boolean;
+  ordem: number;
+  ativo: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Cliente {
+  id: string;
+  nome: string;
+  logo: string | null;
+  descricao: string | null;
+  site: string | null;
+  ordem: number;
+  ativo: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 interface Stats {
   produtos: number;
