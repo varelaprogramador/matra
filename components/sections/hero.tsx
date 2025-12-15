@@ -20,14 +20,30 @@ const stats = [
 export function Hero() {
   return (
     <section className="relative h-screen overflow-hidden bg-black">
-      {/* 3D Background */}
-      <div className="absolute inset-0 opacity-60">
+      {/* Video Background - Infinite Loop (No Audio) */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          className="h-full w-full object-cover opacity-40 pointer-events-none"
+        >
+          <source src="/video.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* 3D Background as overlay */}
+      <div className="absolute inset-0 opacity-30 mix-blend-screen">
         <AbstractShape />
       </div>
 
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
+      {/* Gradient Overlays - more dramatic for video */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center lg:px-8">
@@ -52,10 +68,10 @@ export function Hero() {
 
         {/* Headline */}
         <FadeIn delay={0.2}>
-          <h1 className="max-w-5xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Tecnologia e marketing que
+          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            Construimos
             <span className="relative mx-3 inline-block">
-              <span className="relative z-10">transformam</span>
+              <span className="relative z-10">tecnologia</span>
               <motion.span
                 className="absolute -inset-1 -z-10 rounded-lg bg-white/10"
                 initial={{ scaleX: 0 }}
@@ -63,16 +79,15 @@ export function Hero() {
                 transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
               />
             </span>
-            resultados
+            que escala
           </h1>
         </FadeIn>
 
         {/* Subheadline */}
         <FadeIn delay={0.3}>
-          <p className="mt-6 max-w-3xl text-lg text-white/60 sm:text-xl">
-            Criadores de 11 produtos SaaS. Desenvolvedores de sistemas com blockchain.
-            Especialistas em landing pages que convertem. Somos a tecnologia por tras
-            do crescimento de empresas que exigem excelencia.
+          <p className="mt-6 max-w-2xl text-lg text-white/50 sm:text-xl">
+            11 produtos SaaS proprios. Sistemas com blockchain e IA.
+            Landing pages de alta conversao.
           </p>
         </FadeIn>
 

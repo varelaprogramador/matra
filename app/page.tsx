@@ -12,6 +12,7 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { CTAFinal } from "@/components/sections/cta-final";
 import { Footer } from "@/components/sections/footer";
 import { FullpageScroll } from "@/components/ui/fullpage-scroll";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 
 const sections = [
   {
@@ -62,6 +63,7 @@ export default function Home() {
     <>
       <Navbar />
       <FullpageScroll sections={sections} transitionDuration={0.6} />
+      <WhatsAppButton />
     </>
   );
 }

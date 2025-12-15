@@ -56,18 +56,17 @@ export function Products() {
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn>
             <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
-              Nossos Produtos
+              Produtos
             </span>
           </FadeIn>
           <Reveal delay={0.1}>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              11 SaaS construidos para escalar
+              Nossos produtos
             </h2>
           </Reveal>
           <FadeIn delay={0.2}>
-            <p className="mt-4 text-lg text-white/60">
-              Nao apenas desenvolvemos para clientes — criamos produtos proprios
-              que rodam em producao e atendem milhares de usuarios.
+            <p className="mt-4 text-lg text-white/50">
+              11 SaaS em producao. Milhares de usuarios. Tecnologia propria.
             </p>
           </FadeIn>
         </div>

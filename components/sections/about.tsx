@@ -29,24 +29,14 @@ export function About() {
 
             <Reveal delay={0.1}>
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Tecnologia e marketing que geram resultados reais
+                Criamos produtos, nao apenas projetos
               </h2>
             </Reveal>
 
             <FadeIn delay={0.2}>
-              <p className="mt-6 text-lg leading-relaxed text-white/60">
-                A MATRA e uma empresa de tecnologia e marketing digital que une
-                engenharia de software de alto nivel com estrategias de conversao
-                comprovadas. Desenvolvemos desde plataformas EAD ate sistemas de
-                registro de marcas via blockchain.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <p className="mt-4 text-lg leading-relaxed text-white/60">
-                Com 11 produtos SaaS proprios — incluindo o Spotform, nosso
-                typeform brasileiro, e o MATRA CRM com inteligencia artificial —
-                entendemos o que e construir tecnologia que escala e converte.
+              <p className="mt-6 text-lg leading-relaxed text-white/50">
+                Somos desenvolvedores e donos de produtos. 11 SaaS em producao,
+                sistemas com blockchain e IA. Entendemos de codigo e conversao.
               </p>
             </FadeIn>
 

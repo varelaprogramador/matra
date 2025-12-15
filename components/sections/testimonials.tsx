@@ -48,12 +48,12 @@ export function Testimonials() {
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn>
             <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
-              Clientes e Projetos
+              Clientes
             </span>
           </FadeIn>
           <Reveal delay={0.1}>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Resultados reais para empresas reais
+              Quem confia na MATRA
             </h2>
           </Reveal>
         </div>

@@ -137,18 +137,17 @@ export function Services() {
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn>
             <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
-              O que fazemos
+              Servicos
             </span>
           </FadeIn>
           <Reveal delay={0.1}>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Tecnologia e marketing integrados
+              O que fazemos
             </h2>
           </Reveal>
           <FadeIn delay={0.2}>
-            <p className="mt-4 text-lg text-white/60">
-              Unimos desenvolvimento de alto nivel com estrategias de marketing
-              digital para entregar resultados completos.
+            <p className="mt-4 text-lg text-white/50">
+              Desenvolvimento e marketing que geram resultado.
             </p>
           </FadeIn>
         </div>

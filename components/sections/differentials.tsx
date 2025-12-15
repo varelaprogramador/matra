@@ -125,18 +125,17 @@ export function Differentials() {
         <div className="mx-auto max-w-2xl text-center mb-16">
           <FadeIn>
             <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
-              Por que a MATRA
+              Diferenciais
             </span>
           </FadeIn>
           <Reveal delay={0.1}>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Diferenciais que ninguem mais tem
+              Por que a MATRA
             </h2>
           </Reveal>
           <FadeIn delay={0.2}>
-            <p className="mt-6 text-lg text-white/60">
-              Nao somos uma agencia comum. Somos criadores de produtos, desenvolvedores
-              de sistemas complexos e especialistas em conversao.
+            <p className="mt-6 text-lg text-white/50">
+              Nao somos agencia. Criamos produtos proprios e entendemos o que funciona.
             </p>
           </FadeIn>
         </div>

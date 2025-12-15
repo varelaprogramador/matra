@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FadeIn, Reveal, ScaleOnScroll } from "../ui/motion-wrapper";
+import { FadeIn, Reveal } from "../ui/motion-wrapper";
 import { Button } from "../ui/button";
+
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5500000000000";
 
 export function CTAFinal() {
   return (
@@ -14,21 +16,19 @@ export function CTAFinal() {
       <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
         <FadeIn>
           <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-white/40">
-            Pronto para comecar?
+            Contato
           </span>
         </FadeIn>
 
         <Reveal delay={0.1}>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
-            Seu proximo projeto merece tecnologia de verdade
+            Vamos construir juntos
           </h2>
         </Reveal>
 
         <FadeIn delay={0.2}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/60">
-            Os mesmos desenvolvedores que criaram 11 produtos SaaS e atenderam
-            empresas como Dr Atende Tudo, V7 e Anjos Colchoes estao prontos
-            para transformar sua ideia em realidade.
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/50">
+            Fale com quem entende de tecnologia e conversao.
           </p>
         </FadeIn>
 
@@ -42,7 +42,7 @@ export function CTAFinal() {
           >
             <Button
               size="lg"
-              href="https://wa.me/5500000000000"
+              href={`https://wa.me/${whatsappNumber}`}
               className="min-w-[200px]"
             >
               Falar com Especialista
