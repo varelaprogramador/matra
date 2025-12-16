@@ -11,6 +11,68 @@ const stats = [
   { value: "24h", label: "Tempo de Resposta" },
 ];
 
+// Code snippets for the animated background
+const codeLines = [
+  { text: "const app = createApp({", color: "text-purple-400" },
+  { text: "  name: 'MATRA',", color: "text-emerald-400" },
+  { text: "  type: 'SaaS',", color: "text-emerald-400" },
+  { text: "  features: [", color: "text-purple-400" },
+  { text: "    'scalable',", color: "text-amber-400" },
+  { text: "    'secure',", color: "text-amber-400" },
+  { text: "    'fast'", color: "text-amber-400" },
+  { text: "  ]", color: "text-purple-400" },
+  { text: "});", color: "text-purple-400" },
+  { text: "", color: "text-white/20" },
+  { text: "async function deploy() {", color: "text-blue-400" },
+  { text: "  await build();", color: "text-cyan-400" },
+  { text: "  await test();", color: "text-cyan-400" },
+  { text: "  return success;", color: "text-emerald-400" },
+  { text: "}", color: "text-blue-400" },
+  { text: "", color: "text-white/20" },
+  { text: "export default app;", color: "text-pink-400" },
+  { text: "", color: "text-white/20" },
+  { text: "interface Product {", color: "text-blue-400" },
+  { text: "  id: string;", color: "text-emerald-400" },
+  { text: "  name: string;", color: "text-emerald-400" },
+  { text: "  price: number;", color: "text-amber-400" },
+  { text: "}", color: "text-blue-400" },
+  { text: "", color: "text-white/20" },
+  { text: "<Component", color: "text-pink-400" },
+  { text: "  className='flex'", color: "text-emerald-400" },
+  { text: "  onClick={handle}", color: "text-cyan-400" },
+  { text: "/>", color: "text-pink-400" },
+];
+
+function AnimatedCodeBackground() {
+  // Duplicate lines to create seamless loop
+  const allLines = [...codeLines, ...codeLines];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden opacity-30">
+      <motion.div
+        className="font-mono text-xs sm:text-sm leading-relaxed whitespace-pre"
+        animate={{
+          y: [0, -50 * codeLines.length],
+        }}
+        transition={{
+          y: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 20,
+            ease: "linear",
+          },
+        }}
+      >
+        {allLines.map((line, index) => (
+          <div key={index} className={`${line.color} px-4`}>
+            {line.text || "\u00A0"}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export function About() {
   return (
     <section id="sobre" className="relative bg-black py-12 sm:py-16 min-h-[50vh]">
