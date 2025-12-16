@@ -28,9 +28,9 @@ interface Produto {
 }
 
 const otherProducts = [
-  "Plataforma EAD",
-  "Sistema de Eventos",
-  "Registro de Marcas Blockchain",
+  "Sistemas de Gestao",
+  "Automacoes Empresariais",
+  "Integracoes com APIs",
   "E mais produtos especializados",
 ];
 

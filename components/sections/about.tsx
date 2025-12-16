@@ -35,8 +35,8 @@ export function About() {
 
             <FadeIn delay={0.2}>
               <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg leading-relaxed text-white/50">
-                Somos desenvolvedores e donos de produtos. 11 SaaS em producao,
-                sistemas com blockchain e IA. Entendemos de codigo e conversao.
+                Somos desenvolvedores e donos de produtos. 11 SaaS em producao
+                e mais de 100 projetos entregues. Entendemos de codigo e conversao.
               </p>
             </FadeIn>
 

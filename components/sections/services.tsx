@@ -35,7 +35,7 @@ const services = [
     id: 2,
     title: "Sistemas Sob Medida",
     description:
-      "Solucoes personalizadas que resolvem problemas reais. Desde plataformas EAD ate sistemas de registro de marcas via blockchain.",
+      "Solucoes personalizadas que resolvem problemas reais do seu negocio. Desenvolvemos qualquer tipo de sistema, do simples ao complexo.",
     features: [
       "Arquitetura escalavel",
       "Integracao com APIs",

@@ -86,7 +86,7 @@ export function Hero() {
         {/* Subheadline */}
         <FadeIn delay={0.3}>
           <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-white/50 px-2">
-            11 produtos SaaS proprios. Sistemas com blockchain e IA.
+            11 produtos SaaS proprios. Sistemas sob medida para qualquer necessidade.
             Landing pages de alta conversao.
           </p>
         </FadeIn>

@@ -23,9 +23,9 @@ interface Depoimento {
 }
 
 const projectHighlights = [
-  "Plataforma EAD completa",
-  "Sistema de Eventos",
-  "Registro de Marcas via Blockchain",
+  "Sistemas Sob Medida",
+  "Landing Pages",
+  "Plataformas Completas",
   "11 Produtos SaaS",
 ];
 
