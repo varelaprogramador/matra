@@ -11,60 +11,60 @@ const stats = [
   { value: "24h", label: "Tempo de Resposta" },
 ];
 
-// Code snippets for the animated background
+// Code snippets for the animated background - brighter colors for visibility
 const codeLines = [
-  { text: "const app = createApp({", color: "text-purple-400" },
-  { text: "  name: 'MATRA',", color: "text-emerald-400" },
-  { text: "  type: 'SaaS',", color: "text-emerald-400" },
-  { text: "  features: [", color: "text-purple-400" },
-  { text: "    'scalable',", color: "text-amber-400" },
-  { text: "    'secure',", color: "text-amber-400" },
-  { text: "    'fast'", color: "text-amber-400" },
-  { text: "  ]", color: "text-purple-400" },
-  { text: "});", color: "text-purple-400" },
-  { text: "", color: "text-white/20" },
-  { text: "async function deploy() {", color: "text-blue-400" },
-  { text: "  await build();", color: "text-cyan-400" },
-  { text: "  await test();", color: "text-cyan-400" },
-  { text: "  return success;", color: "text-emerald-400" },
-  { text: "}", color: "text-blue-400" },
-  { text: "", color: "text-white/20" },
-  { text: "export default app;", color: "text-pink-400" },
-  { text: "", color: "text-white/20" },
-  { text: "interface Product {", color: "text-blue-400" },
-  { text: "  id: string;", color: "text-emerald-400" },
-  { text: "  name: string;", color: "text-emerald-400" },
-  { text: "  price: number;", color: "text-amber-400" },
-  { text: "}", color: "text-blue-400" },
-  { text: "", color: "text-white/20" },
-  { text: "<Component", color: "text-pink-400" },
-  { text: "  className='flex'", color: "text-emerald-400" },
-  { text: "  onClick={handle}", color: "text-cyan-400" },
-  { text: "/>", color: "text-pink-400" },
+  { text: "const app = createApp({", color: "text-purple-300" },
+  { text: "  name: 'MATRA',", color: "text-emerald-300" },
+  { text: "  type: 'SaaS',", color: "text-emerald-300" },
+  { text: "  features: [", color: "text-purple-300" },
+  { text: "    'scalable',", color: "text-amber-300" },
+  { text: "    'secure',", color: "text-amber-300" },
+  { text: "    'fast'", color: "text-amber-300" },
+  { text: "  ]", color: "text-purple-300" },
+  { text: "});", color: "text-purple-300" },
+  { text: "", color: "text-white/30" },
+  { text: "async function deploy() {", color: "text-blue-300" },
+  { text: "  await build();", color: "text-cyan-300" },
+  { text: "  await test();", color: "text-cyan-300" },
+  { text: "  return success;", color: "text-emerald-300" },
+  { text: "}", color: "text-blue-300" },
+  { text: "", color: "text-white/30" },
+  { text: "export default app;", color: "text-pink-300" },
+  { text: "", color: "text-white/30" },
+  { text: "interface Product {", color: "text-blue-300" },
+  { text: "  id: string;", color: "text-emerald-300" },
+  { text: "  name: string;", color: "text-emerald-300" },
+  { text: "  price: number;", color: "text-amber-300" },
+  { text: "}", color: "text-blue-300" },
+  { text: "", color: "text-white/30" },
+  { text: "<Component", color: "text-pink-300" },
+  { text: "  className='flex'", color: "text-emerald-300" },
+  { text: "  onClick={handle}", color: "text-cyan-300" },
+  { text: "/>", color: "text-pink-300" },
 ];
 
 function AnimatedCodeBackground() {
   // Duplicate lines to create seamless loop
-  const allLines = [...codeLines, ...codeLines];
+  const allLines = [...codeLines, ...codeLines, ...codeLines];
 
   return (
-    <div className="absolute inset-0 overflow-hidden opacity-30">
+    <div className="absolute inset-0 overflow-hidden">
       <motion.div
-        className="font-mono text-xs sm:text-sm leading-relaxed whitespace-pre"
+        className="font-mono text-sm sm:text-base leading-loose whitespace-pre"
         animate={{
-          y: [0, -50 * codeLines.length],
+          y: [0, -24 * codeLines.length],
         }}
         transition={{
           y: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 20,
+            duration: 15,
             ease: "linear",
           },
         }}
       >
         {allLines.map((line, index) => (
-          <div key={index} className={`${line.color} px-4`}>
+          <div key={index} className={`${line.color} px-4 py-0.5`}>
             {line.text || "\u00A0"}
           </div>
         ))}
@@ -123,9 +123,16 @@ export function About() {
           {/* Right - Visual */}
           <ScaleOnScroll className="relative hidden sm:block">
             <div className="relative aspect-square overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-linear-to-br from-white/10 to-transparent p-1">
-              <div className="h-full w-full rounded-[18px] sm:rounded-[22px] bg-black/80 p-4 sm:p-8 backdrop-blur-xl">
+              <div className="relative h-full w-full rounded-[18px] sm:rounded-[22px] bg-black/70 p-4 sm:p-8 backdrop-blur-xl overflow-hidden">
+                {/* Animated Code Background */}
+                <AnimatedCodeBackground />
+
+                {/* Gradient overlay to fade code at edges - reduced opacity for better visibility */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/80 pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-r from-black/50 via-transparent to-black/50 pointer-events-none" />
+
                 {/* Logo prominente */}
-                <div className="flex h-full flex-col items-center justify-center">
+                <div className="relative z-10 flex h-full flex-col items-center justify-center">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
@@ -133,13 +140,14 @@ export function About() {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="relative"
                   >
-                    <div className="absolute -inset-6 sm:-inset-8 rounded-full bg-white/5 blur-2xl" />
+                    <div className="absolute -inset-6 sm:-inset-8 rounded-full bg-black/60 blur-2xl" />
+                    <div className="absolute -inset-4 sm:-inset-6 rounded-full bg-white/5 blur-xl" />
                     <Image
                       src="/logo.svg"
                       alt="MATRA"
                       width={180}
                       height={180}
-                      className="relative h-28 w-28 sm:h-36 sm:w-36 lg:h-44 lg:w-44"
+                      className="relative h-28 w-28 sm:h-36 sm:w-36 lg:h-44 lg:w-44 drop-shadow-2xl"
                     />
                   </motion.div>
                   <motion.p
@@ -147,7 +155,7 @@ export function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="mt-4 sm:mt-8 text-center text-sm sm:text-base lg:text-lg font-medium text-white/60"
+                    className="mt-4 sm:mt-8 text-center text-sm sm:text-base lg:text-lg font-medium text-white/70 drop-shadow-lg"
                   >
                     Tecnologia. Marketing. Resultado.
                   </motion.p>
