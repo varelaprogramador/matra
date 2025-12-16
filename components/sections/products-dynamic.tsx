@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Package } from "lucide-react";
 import {
   FadeIn,
   StaggerContainer,
@@ -33,6 +34,54 @@ const otherProducts = [
   "E mais produtos especializados",
 ];
 
+// Skeleton component for loading state
+function ProductsSkeleton() {
+  return (
+    <div className="mt-16 grid gap-6 md:grid-cols-2">
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={i}
+          className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/2 animate-pulse"
+        >
+          <div className="h-48 w-full bg-white/5" />
+          <div className="p-8 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded bg-white/10" />
+              <div className="h-6 w-40 rounded bg-white/10" />
+            </div>
+            <div className="space-y-2">
+              <div className="h-4 w-full rounded bg-white/5" />
+              <div className="h-4 w-3/4 rounded bg-white/5" />
+            </div>
+            <div className="flex gap-2 pt-2">
+              {[...Array(3)].map((_, j) => (
+                <div key={j} className="h-6 w-16 rounded-full bg-white/5" />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Empty state component
+function ProductsEmpty() {
+  return (
+    <div className="mt-16 flex flex-col items-center justify-center py-16 sm:py-20">
+      <div className="rounded-full bg-white/5 p-6 mb-6">
+        <Package className="h-12 w-12 text-white/30" />
+      </div>
+      <h3 className="text-lg sm:text-xl font-semibold text-white/70 mb-2">
+        Produtos em desenvolvimento
+      </h3>
+      <p className="text-sm sm:text-base text-white/40 text-center max-w-md">
+        Em breve apresentaremos nosso portfolio de produtos inovadores.
+      </p>
+    </div>
+  );
+}
+
 // Modal Component
 function ProductModal({
   produto,
@@ -63,7 +112,7 @@ function ProductModal({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4"
       onClick={onClose}
     >
       {/* Modal Content */}
@@ -274,8 +323,13 @@ function ProductModal({
   );
 }
 
-export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
+export function ProductsDynamic({ produtos, isLoading = false }: { produtos: Produto[]; isLoading?: boolean }) {
   const [selectedProduct, setSelectedProduct] = useState<Produto | null>(null);
+
+  // Don't render section if no products and not loading
+  if (!isLoading && produtos.length === 0) {
+    return null;
+  }
 
   // Separar produtos em destaque e outros
   // Se nao houver produtos em destaque, mostrar os primeiros 4
@@ -298,7 +352,7 @@ export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
         className="relative flex min-h-screen items-center bg-black py-16"
       >
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] via-transparent to-white/[0.02]" />
+        <div className="absolute inset-0 bg-linear-to-b from-white/2 via-transparent to-white/2" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           {/* Header */}
@@ -320,24 +374,31 @@ export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
             </FadeIn>
           </div>
 
+          {/* Loading State */}
+          {isLoading && <ProductsSkeleton />}
+
+          {/* Empty State */}
+          {!isLoading && produtos.length === 0 && <ProductsEmpty />}
+
           {/* Main Products Grid */}
-          <StaggerContainer
-            staggerDelay={0.1}
-            className="mt-16 grid gap-6 md:grid-cols-2"
-          >
-            {produtosParaMostrar.map((product) => (
-              <motion.div
-                key={product.id}
-                variants={staggerItem}
-                className="group relative cursor-pointer"
-                onClick={() => setSelectedProduct(product)}
-              >
+          {!isLoading && produtos.length > 0 && (
+            <StaggerContainer
+              staggerDelay={0.1}
+              className="mt-16 grid gap-6 md:grid-cols-2"
+            >
+              {produtosParaMostrar.map((product) => (
                 <motion.div
-                  className={`relative h-full overflow-hidden rounded-2xl border transition-all duration-300 ${
-                    product.destaque
-                      ? "border-white/20 bg-white/[0.04]"
-                      : "border-white/10 bg-white/[0.02]"
-                  }`}
+                  key={product.id}
+                  variants={staggerItem}
+                  className="group relative cursor-pointer"
+                  onClick={() => setSelectedProduct(product)}
+                >
+                  <motion.div
+                    className={`relative h-full overflow-hidden rounded-2xl border transition-all duration-300 ${
+                      product.destaque
+                        ? "border-white/20 bg-white/4"
+                        : "border-white/10 bg-white/2"
+                    }`}
                   whileHover={{
                     borderColor: "rgba(255,255,255,0.3)",
                     backgroundColor: "rgba(255,255,255,0.06)",
@@ -353,7 +414,7 @@ export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
                         alt={product.nome}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                     </div>
                   )}
 
@@ -417,15 +478,17 @@ export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
                   </div>
 
                   {/* Hover gradient */}
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 -z-10 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </motion.div>
               </motion.div>
             ))}
-          </StaggerContainer>
+            </StaggerContainer>
+          )}
 
           {/* Other Products */}
-          <ScaleOnScroll>
-            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+          {!isLoading && produtos.length > 0 && (
+            <ScaleOnScroll>
+              <div className="mt-12 rounded-2xl border border-white/10 bg-white/2 p-8">
               <p className="mb-4 text-sm font-medium uppercase tracking-wider text-white/40">
                 Tambem desenvolvemos
               </p>
@@ -439,8 +502,9 @@ export function ProductsDynamic({ produtos }: { produtos: Produto[] }) {
                   </span>
                 ))}
               </div>
-            </div>
-          </ScaleOnScroll>
+              </div>
+            </ScaleOnScroll>
+          )}
         </div>
       </section>
 

@@ -15,6 +15,7 @@ import {
   Search,
   LayoutGrid,
   List,
+  Package,
 } from "lucide-react";
 
 interface Produto {
@@ -34,7 +35,87 @@ interface Produto {
   updatedAt: Date;
 }
 
-export function ProdutosClient({ produtos }: { produtos: Produto[] }) {
+// Skeleton components for loading state
+function GridSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 animate-pulse"
+        >
+          <div className="h-40 bg-zinc-800" />
+          <div className="p-4 space-y-3">
+            <div className="h-5 w-32 rounded bg-zinc-800" />
+            <div className="space-y-2">
+              <div className="h-4 w-full rounded bg-zinc-800/50" />
+              <div className="h-4 w-2/3 rounded bg-zinc-800/50" />
+            </div>
+            <div className="flex gap-1 pt-2">
+              {[...Array(3)].map((_, j) => (
+                <div key={j} className="h-5 w-12 rounded-full bg-zinc-800/50" />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ListSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-800">
+      <table className="w-full">
+        <thead className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Produto</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Tecnologias</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Ordem</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-zinc-800">
+          {[...Array(5)].map((_, i) => (
+            <tr key={i} className="bg-zinc-900/30 animate-pulse">
+              <td className="px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-zinc-800" />
+                  <div className="space-y-1">
+                    <div className="h-4 w-28 rounded bg-zinc-800" />
+                    <div className="h-3 w-40 rounded bg-zinc-800/50" />
+                  </div>
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex gap-1">
+                  {[...Array(2)].map((_, j) => (
+                    <div key={j} className="h-5 w-12 rounded-full bg-zinc-800/50" />
+                  ))}
+                </div>
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-4 w-8 rounded bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-6 w-16 rounded-full bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex items-center justify-end gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function ProdutosClient({ produtos, isLoading = false }: { produtos: Produto[]; isLoading?: boolean }) {
   const router = useRouter();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");

@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import { X, Linkedin, Github, Mail } from "lucide-react";
+import { X, Linkedin, Github, Mail, Users } from "lucide-react";
 import {
   FadeIn,
   StaggerContainer,
@@ -24,8 +24,58 @@ interface MembroEquipe {
   ativo: boolean;
 }
 
-export function TeamDynamic({ membros }: { membros: MembroEquipe[] }) {
+// Skeleton component for loading state
+function TeamSkeleton() {
+  return (
+    <div className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={i}
+          className="relative h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/2 p-4 sm:p-6 animate-pulse"
+        >
+          {/* Photo Skeleton */}
+          <div className="mb-4 sm:mb-5 aspect-square overflow-hidden rounded-lg sm:rounded-xl bg-white/5" />
+
+          {/* Info Skeleton */}
+          <div className="text-center space-y-2">
+            <div className="mx-auto h-5 w-32 rounded bg-white/10" />
+            <div className="mx-auto h-4 w-24 rounded bg-white/5" />
+          </div>
+
+          {/* Hint Skeleton */}
+          <div className="mt-3 sm:mt-4 text-center">
+            <div className="mx-auto h-3 w-28 rounded bg-white/5" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Empty state component
+function TeamEmpty() {
+  return (
+    <div className="mt-10 sm:mt-16 flex flex-col items-center justify-center py-16 sm:py-20">
+      <div className="rounded-full bg-white/5 p-6 mb-6">
+        <Users className="h-12 w-12 text-white/30" />
+      </div>
+      <h3 className="text-lg sm:text-xl font-semibold text-white/70 mb-2">
+        Equipe em construção
+      </h3>
+      <p className="text-sm sm:text-base text-white/40 text-center max-w-md">
+        Em breve você conhecerá os profissionais que fazem a MATRA acontecer.
+      </p>
+    </div>
+  );
+}
+
+export function TeamDynamic({ membros, isLoading = false }: { membros: MembroEquipe[]; isLoading?: boolean }) {
   const [selectedMember, setSelectedMember] = useState<MembroEquipe | null>(null);
+
+  // Don't render section if no members and not loading
+  if (!isLoading && membros.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -33,7 +83,7 @@ export function TeamDynamic({ membros }: { membros: MembroEquipe[] }) {
       className="relative flex min-h-screen items-center bg-black py-12 sm:py-16"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:32px_32px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[32px_32px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -55,12 +105,19 @@ export function TeamDynamic({ membros }: { membros: MembroEquipe[] }) {
           </FadeIn>
         </div>
 
+        {/* Loading State */}
+        {isLoading && <TeamSkeleton />}
+
+        {/* Empty State */}
+        {!isLoading && membros.length === 0 && <TeamEmpty />}
+
         {/* Team Grid */}
-        <StaggerContainer
-          staggerDelay={0.1}
-          className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
-          {membros.map((membro) => (
+        {!isLoading && membros.length > 0 && (
+          <StaggerContainer
+            staggerDelay={0.1}
+            className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          >
+            {membros.map((membro) => (
             <motion.div
               key={membro.id}
               variants={staggerItem}
@@ -113,7 +170,8 @@ export function TeamDynamic({ membros }: { membros: MembroEquipe[] }) {
               </motion.div>
             </motion.div>
           ))}
-        </StaggerContainer>
+          </StaggerContainer>
+        )}
       </div>
 
       {/* Modal */}

@@ -35,7 +35,79 @@ interface MembroEquipe {
   updatedAt: Date;
 }
 
-export function EquipeClient({ membros }: { membros: MembroEquipe[] }) {
+// Skeleton components for loading state
+function GridSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 animate-pulse"
+        >
+          <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-zinc-800" />
+          <div className="text-center space-y-2">
+            <div className="mx-auto h-5 w-32 rounded bg-zinc-800" />
+            <div className="mx-auto h-4 w-24 rounded bg-zinc-800/50" />
+          </div>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <div className="h-4 w-4 rounded bg-zinc-800/50" />
+            <div className="h-4 w-4 rounded bg-zinc-800/50" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ListSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-800">
+      <table className="w-full">
+        <thead className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Membro</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Cargo</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Links</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-zinc-800">
+          {[...Array(5)].map((_, i) => (
+            <tr key={i} className="bg-zinc-900/30 animate-pulse">
+              <td className="px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-zinc-800" />
+                  <div className="h-4 w-32 rounded bg-zinc-800" />
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <div className="h-4 w-24 rounded bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex justify-center gap-2">
+                  <div className="h-4 w-4 rounded bg-zinc-800/50" />
+                  <div className="h-4 w-4 rounded bg-zinc-800/50" />
+                </div>
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-6 w-16 rounded-full bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex items-center justify-end gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function EquipeClient({ membros, isLoading = false }: { membros: MembroEquipe[]; isLoading?: boolean }) {
   const router = useRouter();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");

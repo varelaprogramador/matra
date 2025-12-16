@@ -29,7 +29,74 @@ interface Cliente {
   updatedAt: Date;
 }
 
-export function ClientesClient({ clientes }: { clientes: Cliente[] }) {
+// Skeleton components for loading state
+function GridSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 animate-pulse"
+        >
+          <div className="flex h-20 items-center justify-center mb-4">
+            <div className="h-16 w-16 rounded-xl bg-zinc-800" />
+          </div>
+          <div className="text-center space-y-2">
+            <div className="mx-auto h-5 w-28 rounded bg-zinc-800" />
+            <div className="mx-auto h-4 w-36 rounded bg-zinc-800/50" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ListSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-800">
+      <table className="w-full">
+        <thead className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Cliente</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Site</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Ordem</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-zinc-800">
+          {[...Array(5)].map((_, i) => (
+            <tr key={i} className="bg-zinc-900/30 animate-pulse">
+              <td className="px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-zinc-800" />
+                  <div className="h-4 w-28 rounded bg-zinc-800" />
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <div className="h-4 w-36 rounded bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-4 w-8 rounded bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-6 w-16 rounded-full bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex items-center justify-end gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function ClientesClient({ clientes, isLoading = false }: { clientes: Cliente[]; isLoading?: boolean }) {
   const router = useRouter();
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { MessageSquare } from "lucide-react";
 import {
   FadeIn,
   StaggerContainer,
@@ -28,11 +29,69 @@ const projectHighlights = [
   "11 Produtos SaaS",
 ];
 
+// Skeleton component for loading state
+function TestimonialsSkeleton() {
+  return (
+    <div className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 md:grid-cols-3">
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={i}
+          className="relative h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/2 p-4 sm:p-6 md:p-8 animate-pulse"
+        >
+          <div className="h-6 w-6 sm:h-8 sm:w-8 rounded bg-white/5 mb-4 sm:mb-6" />
+          <div className="flex gap-1 mb-3 sm:mb-4">
+            {[...Array(5)].map((_, j) => (
+              <div key={j} className="h-3 w-3 sm:h-4 sm:w-4 rounded bg-white/5" />
+            ))}
+          </div>
+          <div className="space-y-2 mb-4 sm:mb-6">
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-3/4 rounded bg-white/5" />
+          </div>
+          <div className="border-t border-white/10 pt-4 sm:pt-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/10" />
+              <div className="space-y-1">
+                <div className="h-4 w-24 rounded bg-white/10" />
+                <div className="h-3 w-20 rounded bg-white/5" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Empty state component
+function TestimonialsEmpty() {
+  return (
+    <div className="mt-10 sm:mt-16 flex flex-col items-center justify-center py-16 sm:py-20">
+      <div className="rounded-full bg-white/5 p-6 mb-6">
+        <MessageSquare className="h-12 w-12 text-white/30" />
+      </div>
+      <h3 className="text-lg sm:text-xl font-semibold text-white/70 mb-2">
+        Depoimentos em breve
+      </h3>
+      <p className="text-sm sm:text-base text-white/40 text-center max-w-md">
+        Em breve compartilharemos o feedback dos nossos clientes satisfeitos.
+      </p>
+    </div>
+  );
+}
+
 export function TestimonialsDynamic({
   depoimentos,
+  isLoading = false,
 }: {
   depoimentos: Depoimento[];
+  isLoading?: boolean;
 }) {
+  // Don't render section if no testimonials and not loading
+  if (!isLoading && depoimentos.length === 0) {
+    return null;
+  }
   return (
     <section
       id="depoimentos"
@@ -70,12 +129,19 @@ export function TestimonialsDynamic({
           </div>
         </FadeIn>
 
+        {/* Loading State */}
+        {isLoading && <TestimonialsSkeleton />}
+
+        {/* Empty State */}
+        {!isLoading && depoimentos.length === 0 && <TestimonialsEmpty />}
+
         {/* Testimonials Grid */}
-        <StaggerContainer
-          staggerDelay={0.15}
-          className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 md:grid-cols-3"
-        >
-          {depoimentos.slice(0, 3).map((testimonial) => (
+        {!isLoading && depoimentos.length > 0 && (
+          <StaggerContainer
+            staggerDelay={0.15}
+            className="mt-10 sm:mt-16 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 md:grid-cols-3"
+          >
+            {depoimentos.slice(0, 3).map((testimonial) => (
             <motion.div
               key={testimonial.id}
               variants={staggerItem}
@@ -152,7 +218,8 @@ export function TestimonialsDynamic({
               </motion.div>
             </motion.div>
           ))}
-        </StaggerContainer>
+          </StaggerContainer>
+        )}
       </div>
     </section>
   );

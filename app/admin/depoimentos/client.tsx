@@ -32,10 +32,97 @@ interface Depoimento {
   updatedAt: Date;
 }
 
+// Skeleton components for loading state
+function GridSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 animate-pulse"
+        >
+          <div className="h-8 w-8 rounded bg-zinc-800 mb-4" />
+          <div className="space-y-2 mb-4">
+            <div className="h-4 w-full rounded bg-zinc-800" />
+            <div className="h-4 w-3/4 rounded bg-zinc-800" />
+            <div className="h-4 w-1/2 rounded bg-zinc-800/50" />
+          </div>
+          <div className="flex gap-0.5 mb-4">
+            {[...Array(5)].map((_, j) => (
+              <div key={j} className="h-4 w-4 rounded bg-zinc-800/50" />
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-zinc-800" />
+            <div className="space-y-1">
+              <div className="h-4 w-24 rounded bg-zinc-800" />
+              <div className="h-3 w-32 rounded bg-zinc-800/50" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ListSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-800">
+      <table className="w-full">
+        <thead className="border-b border-zinc-800 bg-zinc-900/50">
+          <tr>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Cliente</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Depoimento</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Nota</th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-zinc-800">
+          {[...Array(5)].map((_, i) => (
+            <tr key={i} className="bg-zinc-900/30 animate-pulse">
+              <td className="px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-zinc-800" />
+                  <div className="space-y-1">
+                    <div className="h-4 w-24 rounded bg-zinc-800" />
+                    <div className="h-3 w-32 rounded bg-zinc-800/50" />
+                  </div>
+                </div>
+              </td>
+              <td className="px-4 py-3">
+                <div className="h-4 w-48 rounded bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex justify-center gap-0.5">
+                  {[...Array(5)].map((_, j) => (
+                    <div key={j} className="h-3 w-3 rounded bg-zinc-800/50" />
+                  ))}
+                </div>
+              </td>
+              <td className="px-4 py-3 text-center">
+                <div className="mx-auto h-6 w-16 rounded-full bg-zinc-800/50" />
+              </td>
+              <td className="px-4 py-3">
+                <div className="flex items-center justify-end gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                  <div className="h-8 w-8 rounded-lg bg-zinc-800/50" />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function DepoimentosClient({
   depoimentos,
+  isLoading = false,
 }: {
   depoimentos: Depoimento[];
+  isLoading?: boolean;
 }) {
   const router = useRouter();
   const [view, setView] = useState<"grid" | "list">("grid");
