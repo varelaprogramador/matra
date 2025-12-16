@@ -11,6 +11,7 @@ import {
   ScaleOnScroll,
 } from "../ui/motion-wrapper";
 import { X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
 
 interface Produto {
   id: string;
@@ -82,13 +83,11 @@ function ProductsEmpty() {
   );
 }
 
-// Modal Component
-function ProductModal({
+// Modal Content Component
+function ProductModalContent({
   produto,
-  onClose,
 }: {
   produto: Produto;
-  onClose: () => void;
 }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -107,107 +106,91 @@ function ProductModal({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-xl p-2 sm:p-4"
-      onClick={onClose}
-    >
-      {/* Modal Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 50, scale: 0.95 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[95vh] sm:max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl"
-      >
-        {/* Close Button - Inside modal */}
+    <>
+      {/* Close Button - Inside modal */}
+      <Dialog.Close asChild>
         <button
           type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose();
-          }}
           className="absolute right-2 sm:right-4 top-2 sm:top-4 z-50 rounded-full border border-white/20 bg-black/50 p-2 sm:p-3 text-white/70 backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70 hover:text-white"
         >
           <X className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
-        {/* Hero Image / Gallery */}
-        {allImages.length > 0 ? (
-          <div className="relative h-[200px] sm:h-[300px] md:h-[400px] w-full overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentImageIndex}
-                src={allImages[currentImageIndex]}
-                alt={produto.nome}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5 }}
-                className="h-full w-full object-cover"
-              />
-            </AnimatePresence>
+      </Dialog.Close>
 
-            {/* Image Overlay Gradient */}
-            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
+      {/* Hero Image / Gallery */}
+      {allImages.length > 0 ? (
+        <div className="relative h-[200px] sm:h-[300px] md:h-[400px] w-full overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentImageIndex}
+              src={allImages[currentImageIndex]}
+              alt={produto.nome}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.5 }}
+              className="h-full w-full object-cover"
+            />
+          </AnimatePresence>
 
-            {/* Navigation Arrows */}
-            {allImages.length > 1 && (
-              <>
-                <button
-                  onClick={prevImage}
-                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
-                >
-                  <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
-                >
-                  <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
-                </button>
+          {/* Image Overlay Gradient */}
+          <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
 
-                {/* Image Indicators */}
-                <div className="absolute bottom-3 sm:bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 sm:gap-2">
-                  {allImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full transition-all ${
-                        index === currentImageIndex
-                          ? "bg-white w-4 sm:w-6"
-                          : "bg-white/40 hover:bg-white/60"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
+          {/* Navigation Arrows */}
+          {allImages.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
+              >
+                <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-1.5 sm:p-2 text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-black/70"
+              >
+                <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
+              </button>
 
-            {/* Icon Overlay */}
-            {produto.icone && (
-              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8">
-                <span className="text-4xl sm:text-6xl drop-shadow-2xl">{produto.icone}</span>
+              {/* Image Indicators */}
+              <div className="absolute bottom-3 sm:bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 sm:gap-2">
+                {allImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`h-1.5 sm:h-2 w-1.5 sm:w-2 rounded-full transition-all ${
+                      index === currentImageIndex
+                        ? "bg-white w-4 sm:w-6"
+                        : "bg-white/40 hover:bg-white/60"
+                    }`}
+                  />
+                ))}
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="relative flex h-[150px] sm:h-[200px] md:h-[300px] items-center justify-center bg-linear-to-br from-white/5 to-transparent">
-            {produto.icone && (
-              <span className="text-5xl sm:text-7xl md:text-8xl opacity-50">{produto.icone}</span>
-            )}
-            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
-          </div>
-        )}
+            </>
+          )}
 
-        {/* Content */}
-        <div className="relative px-4 sm:px-6 md:px-8 pb-6 sm:pb-8 pt-3 sm:pt-4">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
-            <div>
+          {/* Icon Overlay */}
+          {produto.icone && (
+            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8">
+              <span className="text-4xl sm:text-6xl drop-shadow-2xl">{produto.icone}</span>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="relative flex h-[150px] sm:h-[200px] md:h-[300px] items-center justify-center bg-linear-to-br from-white/5 to-transparent">
+          {produto.icone && (
+            <span className="text-5xl sm:text-7xl md:text-8xl opacity-50">{produto.icone}</span>
+          )}
+          <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent" />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className="relative px-4 sm:px-6 md:px-8 pb-6 sm:pb-8 pt-3 sm:pt-4">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+          <div>
+            <Dialog.Title asChild>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -216,6 +199,8 @@ function ProductModal({
               >
                 {produto.nome}
               </motion.h2>
+            </Dialog.Title>
+            <Dialog.Description asChild>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -224,102 +209,102 @@ function ProductModal({
               >
                 {produto.descricao}
               </motion.p>
-            </div>
-
-            {produto.link && (
-              <motion.a
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-                href={produto.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/20 w-full sm:w-auto"
-              >
-                Acessar
-                <ExternalLink className="h-4 w-4" />
-              </motion.a>
-            )}
+            </Dialog.Description>
           </div>
 
-          {/* Technologies */}
-          {produto.tecnologias && Array.isArray(produto.tecnologias) && produto.tecnologias.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+          {produto.link && (
+            <motion.a
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="mt-4 sm:mt-6"
+              href={produto.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/20 w-full sm:w-auto"
             >
-              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
-                Tecnologias
-              </p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {produto.tecnologias.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm text-white/70"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Long Description */}
-          {produto.descricaoLonga && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="mt-6 sm:mt-8"
-            >
-              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
-                Sobre o Projeto
-              </p>
-              <div className="prose prose-invert max-w-none">
-                <p className="whitespace-pre-wrap text-sm sm:text-base text-white/70 leading-relaxed">
-                  {produto.descricaoLonga}
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Gallery Thumbnails */}
-          {allImages.length > 1 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="mt-6 sm:mt-8"
-            >
-              <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
-                Galeria
-              </p>
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
-                {allImages.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`relative aspect-video overflow-hidden rounded-md sm:rounded-lg transition-all ${
-                      index === currentImageIndex
-                        ? "ring-2 ring-white ring-offset-1 sm:ring-offset-2 ring-offset-zinc-950"
-                        : "opacity-60 hover:opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`${produto.nome} - ${index + 1}`}
-                      className="h-full w-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            </motion.div>
+              Acessar
+              <ExternalLink className="h-4 w-4" />
+            </motion.a>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+
+        {/* Technologies */}
+        {produto.tecnologias && Array.isArray(produto.tecnologias) && produto.tecnologias.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-4 sm:mt-6"
+          >
+            <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
+              Tecnologias
+            </p>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {produto.tecnologias.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm text-white/70"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Long Description */}
+        {produto.descricaoLonga && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 sm:mt-8"
+          >
+            <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
+              Sobre o Projeto
+            </p>
+            <div className="prose prose-invert max-w-none">
+              <p className="whitespace-pre-wrap text-sm sm:text-base text-white/70 leading-relaxed">
+                {produto.descricaoLonga}
+              </p>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Gallery Thumbnails */}
+        {allImages.length > 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-6 sm:mt-8"
+          >
+            <p className="mb-2 sm:mb-3 text-xs sm:text-sm font-medium uppercase tracking-wider text-white/40">
+              Galeria
+            </p>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
+              {allImages.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`relative aspect-video overflow-hidden rounded-md sm:rounded-lg transition-all ${
+                    index === currentImageIndex
+                      ? "ring-2 ring-white ring-offset-1 sm:ring-offset-2 ring-offset-zinc-950"
+                      : "opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`${produto.nome} - ${index + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -508,15 +493,31 @@ export function ProductsDynamic({ produtos, isLoading = false }: { produtos: Pro
         </div>
       </section>
 
-      {/* Product Modal */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <ProductModal
-            produto={selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-          />
-        )}
-      </AnimatePresence>
+      {/* Product Modal using Radix Dialog */}
+      <Dialog.Root open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay asChild>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-100 bg-black/95 backdrop-blur-xl"
+            />
+          </Dialog.Overlay>
+          <Dialog.Content asChild>
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed left-1/2 top-1/2 z-100 max-h-[95vh] sm:max-h-[90vh] w-[calc(100%-16px)] sm:w-[calc(100%-32px)] max-w-5xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/10 bg-zinc-950 shadow-2xl focus:outline-none"
+            >
+              {selectedProduct && <ProductModalContent produto={selectedProduct} />}
+            </motion.div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </>
   );
 }
