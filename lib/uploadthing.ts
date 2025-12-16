@@ -25,7 +25,7 @@ export const ourFileRouter = {
 
   avatarUploader: f({
     image: {
-      maxFileSize: "1MB",
+      maxFileSize: "4MB",
       maxFileCount: 1,
     },
   }).onUploadComplete(async ({ file }) => {
