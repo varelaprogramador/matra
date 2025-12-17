@@ -50,17 +50,14 @@ export function Footer() {
         <div className="grid gap-8 sm:gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}
           <div className="sm:col-span-2">
-            <a href="#" className="flex items-center gap-2 sm:gap-3">
+            <a href="#" className="flex items-center">
               <Image
-                src="/logo.svg"
-                alt="MATRA Tecnologia"
-                width={40}
-                height={40}
-                className="h-8 w-8 sm:h-10 sm:w-10"
+                src="/logo.png"
+                alt="MATRA Tecnologia & Marketing"
+                width={160}
+                height={60}
+                className="h-12 sm:h-14 w-auto"
               />
-              <span className="text-base sm:text-lg font-semibold tracking-tight text-white">
-                MATRA
-              </span>
             </a>
             <p className="mt-3 sm:mt-4 max-w-xs text-xs sm:text-sm text-white/40">
               Tecnologia e marketing de alto nivel para empresas que exigem

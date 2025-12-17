@@ -35,17 +35,15 @@ export function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 border-b border-white/0 transition-colors duration-300"
       >
         <nav className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a href="#" className="flex items-center gap-2 sm:gap-3">
+          <a href="#" className="flex items-center">
             <Image
-              src="/logo.svg"
-              alt="MATRA Tecnologia"
-              width={44}
-              height={44}
-              className="h-9 w-9 sm:h-11 sm:w-11"
+              src="/logo.png"
+              alt="MATRA Tecnologia & Marketing"
+              width={140}
+              height={50}
+              className="h-10 sm:h-12 w-auto"
+              priority
             />
-            <span className="text-base sm:text-lg font-semibold tracking-tight text-white">
-              MATRA
-            </span>
           </a>
 
           {/* Desktop Navigation */}

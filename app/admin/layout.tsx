@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -40,9 +41,15 @@ export default function AdminLayout({
       <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-zinc-900 border-r border-zinc-800">
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center justify-between px-6 border-b border-zinc-800">
-            <Link href="/admin" className="text-xl font-bold text-white">
-              MATRA Admin
+          <div className="flex h-16 items-center justify-between px-4 border-b border-zinc-800">
+            <Link href="/admin" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="MATRA Admin"
+                width={120}
+                height={40}
+                className="h-9 w-auto"
+              />
             </Link>
             <Link
               href="/"
