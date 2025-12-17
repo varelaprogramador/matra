@@ -63,3 +63,24 @@ model MembroEquipe {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Lead {
+  id          String     @id @default(cuid())
+  nome        String
+  email       String?
+  telefone    String
+  mensagem    String     @db.Text
+  origem      String     @default("site")
+  status      LeadStatus @default(NOVO)
+  notas       String?    @db.Text
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum LeadStatus {
+  NOVO
+  CONTATADO
+  EM_NEGOCIACAO
+  CONVERTIDO
+  PERDIDO
+}

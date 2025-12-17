@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -63,6 +64,16 @@ export default function RootLayout({
           className={`${inter.variable} font-sans antialiased bg-black text-white`}
         >
           {children}
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: "#18181b",
+                border: "1px solid #27272a",
+                color: "#fff",
+              },
+            }}
+          />
         </body>
       </html>
     </ClerkProvider>

@@ -64,8 +64,8 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden sm:block">
-            <Button variant="secondary" size="sm" href="#contato">
-              Fale Conosco
+            <Button size="sm" href="#contato">
+              Iniciar Projeto
             </Button>
           </div>
 

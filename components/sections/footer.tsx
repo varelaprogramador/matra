@@ -119,7 +119,9 @@ export function Footer() {
           </p>
           <div className="flex gap-5 sm:gap-6">
             <motion.a
-              href="#"
+              href="https://www.linkedin.com/company/matratecnologia"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white/30 transition-colors hover:text-white"
               whileHover={{ y: -2 }}
             >
@@ -129,7 +131,9 @@ export function Footer() {
               </svg>
             </motion.a>
             <motion.a
-              href="#"
+              href="https://www.instagram.com/matratecnologia"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white/30 transition-colors hover:text-white"
               whileHover={{ y: -2 }}
             >
@@ -139,7 +143,9 @@ export function Footer() {
               </svg>
             </motion.a>
             <motion.a
-              href="https://wa.me/5500000000000"
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5543999999999"}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white/30 transition-colors hover:text-white"
               whileHover={{ y: -2 }}
             >

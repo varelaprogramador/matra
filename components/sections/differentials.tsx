@@ -26,9 +26,9 @@ const differentials = [
     id: 2,
     title: "Tecnologia de Ponta",
     description:
-      "Blockchain para registro de marcas. IA integrada em CRMs. Plataformas EAD completas. Tecnologia real, nao buzzword.",
-    metric: "Blockchain",
-    metricLabel: "& IA Integrada",
+      "Arquiteturas modernas, APIs robustas e integrações inteligentes. Usamos as melhores ferramentas para cada projeto.",
+    metric: "Stack",
+    metricLabel: "Moderna & Escalável",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -98,7 +98,7 @@ const differentials = [
     id: 6,
     title: "Projetos Complexos",
     description:
-      "Plataforma EAD, sistema de eventos, registro de marcas via blockchain. Projetos que outras empresas recusam.",
+      "Plataformas completas, sistemas de gestão, automações avançadas. Projetos que outras empresas recusam, nós entregamos.",
     metric: "100+",
     metricLabel: "Projetos Entregues",
     icon: (

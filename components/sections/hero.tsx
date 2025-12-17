@@ -69,9 +69,9 @@ export function Hero() {
         {/* Headline */}
         <FadeIn delay={0.2}>
           <h1 className="max-w-4xl text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-            Construimos
+            Transforme sua ideia em
             <span className="relative mx-1 sm:mx-2 md:mx-3 inline-block">
-              <span className="relative z-10">tecnologia</span>
+              <span className="relative z-10">resultado</span>
               <motion.span
                 className="absolute -inset-1 -z-10 rounded-lg bg-white/10"
                 initial={{ scaleX: 0 }}
@@ -79,15 +79,15 @@ export function Hero() {
                 transition={{ delay: 0.8, duration: 0.5, ease: "easeOut" }}
               />
             </span>
-            que escala
+            real
           </h1>
         </FadeIn>
 
         {/* Subheadline */}
         <FadeIn delay={0.3}>
           <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-white/50 px-2">
-            11 produtos SaaS proprios. Sistemas sob medida para qualquer necessidade.
-            Landing pages de alta conversao.
+            Sistemas que vendem, landing pages que convertem, produtos que escalam.
+            Tecnologia e marketing unidos para gerar resultado.
           </p>
         </FadeIn>
 

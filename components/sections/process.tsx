@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, staggerItem, Reveal } from "../ui/motion-wrapper";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -107,6 +109,19 @@ export function Process() {
             </div>
           </div>
         </StaggerContainer>
+
+        {/* CTA after process */}
+        <FadeIn delay={0.5}>
+          <div className="mt-12 sm:mt-16 text-center">
+            <p className="text-sm sm:text-base text-white/50 mb-6">
+              Pronto para comecar? O primeiro passo e uma conversa sem compromisso.
+            </p>
+            <Button size="lg" href="#contato">
+              Agendar Diagnostico Gratuito
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

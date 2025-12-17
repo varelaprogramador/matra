@@ -10,10 +10,12 @@ import {
   MessageSquare,
   ChevronLeft,
   UserCircle,
+  Inbox,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Leads", href: "/admin/leads", icon: Inbox },
   { name: "Produtos", href: "/admin/produtos", icon: Package },
   { name: "Clientes", href: "/admin/clientes", icon: Users },
   { name: "Depoimentos", href: "/admin/depoimentos", icon: MessageSquare },
