@@ -22,8 +22,8 @@ type LeadStatus = "NOVO" | "CONTATADO" | "EM_NEGOCIACAO" | "CONVERTIDO" | "PERDI
 interface Lead {
   id: string;
   nome: string;
-  email: string;
-  telefone: string | null;
+  email: string | null;
+  telefone: string;
   mensagem: string;
   origem: string;
   status: LeadStatus;
@@ -67,7 +67,7 @@ export function LeadsClient({ leads }: { leads: Lead[] }) {
   const filteredLeads = leads.filter((lead) => {
     const matchesSearch =
       lead.nome.toLowerCase().includes(search.toLowerCase()) ||
-      lead.email.toLowerCase().includes(search.toLowerCase()) ||
+      (lead.email?.toLowerCase().includes(search.toLowerCase()) ?? false) ||
       lead.mensagem.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter === "TODOS" || lead.status === statusFilter;
     return matchesSearch && matchesStatus;
