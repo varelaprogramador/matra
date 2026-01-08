@@ -1,25 +1,25 @@
-import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
-import { DepoimentoEditor } from "./editor";
+import { prisma } from '@/lib/prisma'
+import { notFound } from 'next/navigation'
+import { DepoimentoEditor } from './editor'
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }
 
 export default async function DepoimentoDetailPage({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = await params
 
-  if (id === "novo") {
-    return <DepoimentoEditor depoimento={null} />;
+  if (id === 'novo') {
+    return <DepoimentoEditor depoimento={null} />
   }
 
   const depoimento = await prisma.depoimento.findUnique({
     where: { id },
-  });
+  })
 
   if (!depoimento) {
-    notFound();
+    notFound()
   }
 
-  return <DepoimentoEditor depoimento={depoimento} />;
+  return <DepoimentoEditor depoimento={depoimento} />
 }

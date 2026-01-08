@@ -1,125 +1,132 @@
-"use client";
+'use client'
 
-import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { ImageUpload } from '@/components/admin/image-upload'
 import {
   ArrowLeft,
-  Save,
-  Loader2,
-  Eye,
-  EyeOff,
-  Trash2,
-  Hash,
-  User,
   Briefcase,
   Building2,
+  Eye,
+  EyeOff,
+  Hash,
+  Loader2,
   MessageSquare,
+  Save,
   Star,
-} from "lucide-react";
-import Link from "next/link";
-import { ImageUpload } from "@/components/admin/image-upload";
+  Trash2,
+  User,
+} from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useCallback, useState } from 'react'
 
 interface Depoimento {
-  id: string;
-  nome: string;
-  cargo: string;
-  empresa: string;
-  texto: string;
-  avatar: string | null;
-  nota: number;
-  ordem: number;
-  ativo: boolean;
+  id: string
+  nome: string
+  cargo: string
+  empresa: string
+  texto: string
+  avatar: string | null
+  nota: number
+  ordem: number
+  ativo: boolean
 }
 
 interface DepoimentoEditorProps {
-  depoimento: Depoimento | null;
+  depoimento: Depoimento | null
 }
 
 export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
-  const router = useRouter();
-  const isNew = !depoimento;
+  const router = useRouter()
+  const isNew = !depoimento
 
   const [formData, setFormData] = useState({
-    nome: depoimento?.nome || "",
-    cargo: depoimento?.cargo || "",
-    empresa: depoimento?.empresa || "",
-    texto: depoimento?.texto || "",
-    avatar: depoimento?.avatar || "",
+    nome: depoimento?.nome || '',
+    cargo: depoimento?.cargo || '',
+    empresa: depoimento?.empresa || '',
+    texto: depoimento?.texto || '',
+    avatar: depoimento?.avatar || '',
     nota: depoimento?.nota || 5,
     ordem: depoimento?.ordem || 0,
     ativo: depoimento?.ativo ?? true,
-  });
+  })
 
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isSaving, setIsSaving] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const updateField = useCallback(
-    <K extends keyof typeof formData>(field: K, value: (typeof formData)[K]) => {
-      setFormData((prev) => ({ ...prev, [field]: value }));
+    <K extends keyof typeof formData>(
+      field: K,
+      value: (typeof formData)[K],
+    ) => {
+      setFormData(prev => ({ ...prev, [field]: value }))
     },
-    []
-  );
+    [],
+  )
 
   const handleSave = async () => {
     if (!formData.nome.trim() || !formData.texto.trim()) {
-      alert("Nome e texto sao obrigatorios");
-      return;
+      alert('Nome e texto sao obrigatorios')
+      return
     }
 
-    setIsSaving(true);
+    setIsSaving(true)
 
     try {
-      const url = isNew ? "/api/depoimentos" : `/api/depoimentos/${depoimento.id}`;
-      const method = isNew ? "POST" : "PUT";
+      const url = isNew
+        ? '/api/depoimentos'
+        : `/api/depoimentos/${depoimento.id}`
+      const method = isNew ? 'POST' : 'PUT'
 
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           avatar: formData.avatar || null,
         }),
-      });
+      })
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Erro ao salvar depoimento");
+        const error = await response.json()
+        throw new Error(error.error || 'Erro ao salvar depoimento')
       }
 
-      router.push("/admin/depoimentos");
-      router.refresh();
+      router.push('/admin/depoimentos')
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
-      alert(error instanceof Error ? error.message : "Erro ao salvar depoimento");
+      console.error('Erro:', error)
+      alert(
+        error instanceof Error ? error.message : 'Erro ao salvar depoimento',
+      )
     } finally {
-      setIsSaving(false);
+      setIsSaving(false)
     }
-  };
+  }
 
   const handleDelete = async () => {
-    if (!depoimento) return;
-    if (!confirm("Tem certeza que deseja excluir este depoimento?")) return;
+    if (!depoimento) return
+    if (!confirm('Tem certeza que deseja excluir este depoimento?')) return
 
-    setIsDeleting(true);
+    setIsDeleting(true)
 
     try {
       const response = await fetch(`/api/depoimentos/${depoimento.id}`, {
-        method: "DELETE",
-      });
+        method: 'DELETE',
+      })
 
       if (!response.ok) {
-        throw new Error("Erro ao excluir depoimento");
+        throw new Error('Erro ao excluir depoimento')
       }
 
-      router.push("/admin/depoimentos");
-      router.refresh();
+      router.push('/admin/depoimentos')
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao excluir depoimento");
+      console.error('Erro:', error)
+      alert('Erro ao excluir depoimento')
     } finally {
-      setIsDeleting(false);
+      setIsDeleting(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -135,10 +142,10 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
             </Link>
             <div>
               <h1 className="text-lg font-semibold text-white">
-                {isNew ? "Novo Depoimento" : formData.nome || "Sem nome"}
+                {isNew ? 'Novo Depoimento' : formData.nome || 'Sem nome'}
               </h1>
               <p className="text-sm text-zinc-500">
-                {isNew ? "Criando novo depoimento" : "Editando depoimento"}
+                {isNew ? 'Criando novo depoimento' : 'Editando depoimento'}
               </p>
             </div>
           </div>
@@ -146,11 +153,11 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => updateField("ativo", !formData.ativo)}
+              onClick={() => updateField('ativo', !formData.ativo)}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
                 formData.ativo
-                  ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
-                  : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                  ? 'bg-green-500/10 text-green-400 hover:bg-green-500/20'
+                  : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
               }`}
             >
               {formData.ativo ? (
@@ -158,7 +165,9 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
               ) : (
                 <EyeOff className="h-4 w-4" />
               )}
-              <span className="text-sm">{formData.ativo ? "Ativo" : "Inativo"}</span>
+              <span className="text-sm">
+                {formData.ativo ? 'Ativo' : 'Inativo'}
+              </span>
             </button>
 
             {!isNew && (
@@ -197,7 +206,7 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
           </label>
           <ImageUpload
             value={formData.avatar}
-            onChange={(url) => updateField("avatar", url || "")}
+            onChange={url => updateField('avatar', url || '')}
             endpoint="avatarUploader"
           />
         </div>
@@ -211,7 +220,7 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
           <input
             type="text"
             value={formData.nome}
-            onChange={(e) => updateField("nome", e.target.value)}
+            onChange={e => updateField('nome', e.target.value)}
             placeholder="Nome do cliente"
             className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700"
           />
@@ -226,7 +235,7 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
           <input
             type="text"
             value={formData.cargo}
-            onChange={(e) => updateField("cargo", e.target.value)}
+            onChange={e => updateField('cargo', e.target.value)}
             placeholder="Ex: Diretor de Marketing"
             className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700"
           />
@@ -241,7 +250,7 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
           <input
             type="text"
             value={formData.empresa}
-            onChange={(e) => updateField("empresa", e.target.value)}
+            onChange={e => updateField('empresa', e.target.value)}
             placeholder="Nome da empresa"
             className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700"
           />
@@ -251,11 +260,13 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <MessageSquare className="h-5 w-5 text-zinc-500" />
-            <label className="text-sm font-medium text-zinc-400">Depoimento</label>
+            <label className="text-sm font-medium text-zinc-400">
+              Depoimento
+            </label>
           </div>
           <textarea
             value={formData.texto}
-            onChange={(e) => updateField("texto", e.target.value)}
+            onChange={e => updateField('texto', e.target.value)}
             placeholder="O que o cliente disse sobre a MATRA..."
             rows={5}
             className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700 resize-none"
@@ -266,21 +277,23 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-3">
             <Star className="h-5 w-5 text-zinc-500" />
-            <label className="text-sm font-medium text-zinc-400">Avaliacao</label>
+            <label className="text-sm font-medium text-zinc-400">
+              Avaliacao
+            </label>
           </div>
           <div className="flex gap-2">
-            {[1, 2, 3, 4, 5].map((star) => (
+            {[1, 2, 3, 4, 5].map(star => (
               <button
                 key={star}
                 type="button"
-                onClick={() => updateField("nota", star)}
+                onClick={() => updateField('nota', star)}
                 className="p-1 transition-transform hover:scale-110"
               >
                 <Star
                   className={`h-8 w-8 ${
                     star <= formData.nota
-                      ? "fill-yellow-500 text-yellow-500"
-                      : "text-zinc-700 hover:text-zinc-500"
+                      ? 'fill-yellow-500 text-yellow-500'
+                      : 'text-zinc-700 hover:text-zinc-500'
                   }`}
                 />
               </button>
@@ -292,12 +305,14 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
             <Hash className="h-5 w-5 text-zinc-500" />
-            <label className="text-sm font-medium text-zinc-400">Ordem de Exibicao</label>
+            <label className="text-sm font-medium text-zinc-400">
+              Ordem de Exibicao
+            </label>
           </div>
           <input
             type="number"
             value={formData.ordem}
-            onChange={(e) => updateField("ordem", parseInt(e.target.value) || 0)}
+            onChange={e => updateField('ordem', parseInt(e.target.value) || 0)}
             className="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-700"
           />
           <p className="text-xs text-zinc-500 mt-2">
@@ -307,10 +322,12 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
 
         {/* Preview */}
         <div className="mt-8 p-6 rounded-xl border border-zinc-800 bg-zinc-900/50">
-          <p className="text-sm font-medium text-zinc-400 mb-4">Pre-visualizacao</p>
+          <p className="text-sm font-medium text-zinc-400 mb-4">
+            Pre-visualizacao
+          </p>
           <div className="relative">
             <p className="text-zinc-300 italic mb-4">
-              &quot;{formData.texto || "Texto do depoimento..."}&quot;
+              &quot;{formData.texto || 'Texto do depoimento...'}&quot;
             </p>
             <div className="flex items-center gap-3">
               {formData.avatar ? (
@@ -326,21 +343,21 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
               )}
               <div>
                 <p className="font-medium text-white">
-                  {formData.nome || "Nome do cliente"}
+                  {formData.nome || 'Nome do cliente'}
                 </p>
                 <p className="text-sm text-zinc-500">
-                  {formData.cargo || "Cargo"} na {formData.empresa || "Empresa"}
+                  {formData.cargo || 'Cargo'} na {formData.empresa || 'Empresa'}
                 </p>
               </div>
             </div>
             <div className="flex gap-0.5 mt-3">
-              {[1, 2, 3, 4, 5].map((star) => (
+              {[1, 2, 3, 4, 5].map(star => (
                 <Star
                   key={star}
                   className={`h-4 w-4 ${
                     star <= formData.nota
-                      ? "fill-yellow-500 text-yellow-500"
-                      : "text-zinc-700"
+                      ? 'fill-yellow-500 text-yellow-500'
+                      : 'text-zinc-700'
                   }`}
                 />
               ))}
@@ -349,5 +366,5 @@ export function DepoimentoEditor({ depoimento }: DepoimentoEditorProps) {
         </div>
       </main>
     </div>
-  );
+  )
 }

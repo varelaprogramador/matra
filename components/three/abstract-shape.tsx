@@ -1,19 +1,20 @@
-"use client";
+/* eslint-disable react-hooks/purity */
+'use client'
 
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshDistortMaterial } from "@react-three/drei";
-import * as THREE from "three";
+import { Float, MeshDistortMaterial } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useMemo, useRef } from 'react'
+import * as THREE from 'three'
 
 function AnimatedSphere() {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null)
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = clock.getElapsedTime() * 0.1;
-      meshRef.current.rotation.y = clock.getElapsedTime() * 0.15;
+      meshRef.current.rotation.x = clock.getElapsedTime() * 0.1
+      meshRef.current.rotation.y = clock.getElapsedTime() * 0.15
     }
-  });
+  })
 
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
@@ -30,31 +31,31 @@ function AnimatedSphere() {
         />
       </mesh>
     </Float>
-  );
+  )
 }
 
 function Particles() {
-  const count = 200;
-  const pointsRef = useRef<THREE.Points>(null);
+  const count = 200
+  const pointsRef = useRef<THREE.Points>(null)
 
   const geometry = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
+    const geo = new THREE.BufferGeometry()
+    const positions = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 15;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+      positions[i * 3] = (Math.random() - 0.5) * 15
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 15
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 15
     }
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    return geo;
-  }, []);
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    return geo
+  }, [])
 
   useFrame(({ clock }) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = clock.getElapsedTime() * 0.02;
-      pointsRef.current.rotation.x = clock.getElapsedTime() * 0.01;
+      pointsRef.current.rotation.y = clock.getElapsedTime() * 0.02
+      pointsRef.current.rotation.x = clock.getElapsedTime() * 0.01
     }
-  });
+  })
 
   return (
     <points ref={pointsRef} geometry={geometry}>
@@ -66,7 +67,7 @@ function Particles() {
         sizeAttenuation
       />
     </points>
-  );
+  )
 }
 
 export function AbstractShape() {
@@ -84,5 +85,5 @@ export function AbstractShape() {
         <Particles />
       </Canvas>
     </div>
-  );
+  )
 }

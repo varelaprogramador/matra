@@ -1,15 +1,15 @@
-import { prisma } from "@/lib/prisma";
-import { LeadsClient } from "./client";
+import { prisma } from '@/lib/prisma'
+import { LeadsClient } from './client'
 
 async function getLeads() {
   const leads = await prisma.lead.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-  return leads;
+    orderBy: { createdAt: 'desc' },
+  })
+  return leads
 }
 
 export default async function LeadsPage() {
-  const leads = await getLeads();
+  const leads = await getLeads()
 
-  return <LeadsClient leads={leads} />;
+  return <LeadsClient leads={leads} />
 }

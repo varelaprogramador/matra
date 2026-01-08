@@ -1,26 +1,24 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { ImageUpload, MultiImageUpload } from "@/components/admin/image-upload"
 import {
   ArrowLeft,
-  Save,
-  Loader2,
   Eye,
   EyeOff,
+  Hash,
+  Link as LinkIcon,
+  Loader2,
+  Plus,
+  Save,
   Star,
   StarOff,
   Trash2,
-  Plus,
-  X,
-  GripVertical,
-  Image as ImageIcon,
-  Link as LinkIcon,
   Type,
-  Hash,
-} from "lucide-react";
-import Link from "next/link";
-import { ImageUpload, MultiImageUpload } from "@/components/admin/image-upload";
+  X
+} from "lucide-react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useCallback, useState } from "react"
 
 interface Produto {
   id: string;

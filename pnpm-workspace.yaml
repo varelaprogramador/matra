@@ -1,0 +1,26 @@
+onlyBuiltDependencies:
+  - ' '
+  - '"'
+  - ','
+  - '-'
+  - /
+  - '@'
+  - '@clerk/shared'
+  - '['
+  - ']'
+  - a
+  - c
+  - d
+  - e
+  - h
+  - k
+  - l
+  - n
+  - o
+  - p
+  - prisma
+  - r
+  - s
+  - u
+  - v
+  - w

@@ -1,38 +1,38 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton } from '@clerk/nextjs'
 import {
-  LayoutDashboard,
-  Package,
-  Users,
-  MessageSquare,
   ChevronLeft,
-  UserCircle,
   Inbox,
-} from "lucide-react";
+  LayoutDashboard,
+  MessageSquare,
+  Package,
+  UserCircle,
+  Users,
+} from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const navigation = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Leads", href: "/admin/leads", icon: Inbox },
-  { name: "Produtos", href: "/admin/produtos", icon: Package },
-  { name: "Clientes", href: "/admin/clientes", icon: Users },
-  { name: "Depoimentos", href: "/admin/depoimentos", icon: MessageSquare },
-  { name: "Equipe", href: "/admin/equipe", icon: UserCircle },
-];
+  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Leads', href: '/admin/leads', icon: Inbox },
+  { name: 'Produtos', href: '/admin/produtos', icon: Package },
+  { name: 'Clientes', href: '/admin/clientes', icon: Users },
+  { name: 'Depoimentos', href: '/admin/depoimentos', icon: MessageSquare },
+  { name: 'Equipe', href: '/admin/equipe', icon: UserCircle },
+]
 
 export default function AdminLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   // Don't show sidebar on sign-in/sign-up pages
-  if (pathname?.includes("sign-in") || pathname?.includes("sign-up")) {
-    return <>{children}</>;
+  if (pathname?.includes('sign-in') || pathname?.includes('sign-up')) {
+    return <>{children}</>
   }
 
   return (
@@ -62,24 +62,24 @@ export default function AdminLayout({
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1 px-3 py-4">
-            {navigation.map((item) => {
+            {navigation.map(item => {
               const isActive =
                 pathname === item.href ||
-                (item.href !== "/admin" && pathname?.startsWith(item.href));
+                (item.href !== '/admin' && pathname?.startsWith(item.href))
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-white/10 text-white"
-                      : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                      ? 'bg-white/10 text-white'
+                      : 'text-zinc-400 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   <item.icon className="h-5 w-5" />
                   {item.name}
                 </Link>
-              );
+              )
             })}
           </nav>
 
@@ -90,7 +90,7 @@ export default function AdminLayout({
                 afterSignOutUrl="/"
                 appearance={{
                   elements: {
-                    avatarBox: "h-10 w-10",
+                    avatarBox: 'h-10 w-10',
                   },
                 }}
               />
@@ -110,5 +110,5 @@ export default function AdminLayout({
         <div className="min-h-screen">{children}</div>
       </main>
     </div>
-  );
+  )
 }
