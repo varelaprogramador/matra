@@ -1,49 +1,49 @@
+import { prisma } from '@/lib/prisma'
 import {
-  Package,
-  Users,
-  MessageSquare,
-  Plus,
-  ArrowUpRight,
   Activity,
-} from "lucide-react";
-import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+  ArrowUpRight,
+  MessageSquare,
+  Package,
+  Plus,
+  Users,
+} from 'lucide-react'
+import Link from 'next/link'
 
 interface Produto {
-  id: string;
-  nome: string;
-  descricao: string;
-  descricaoLonga: string | null;
-  icone: string | null;
-  imagem: string | null;
-  imagens: string[];
-  link: string | null;
-  tecnologias: string[];
-  destaque: boolean;
-  ordem: number;
-  ativo: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  nome: string
+  descricao: string
+  descricaoLonga: string | null
+  icone: string | null
+  imagem: string | null
+  imagens: string[]
+  link: string | null
+  tecnologias: string[]
+  destaque: boolean
+  ordem: number
+  ativo: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 interface Cliente {
-  id: string;
-  nome: string;
-  logo: string | null;
-  descricao: string | null;
-  site: string | null;
-  ordem: number;
-  ativo: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  nome: string
+  logo: string | null
+  descricao: string | null
+  site: string | null
+  ordem: number
+  ativo: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 interface Stats {
-  produtos: number;
-  clientes: number;
-  depoimentos: number;
-  recentProdutos: Produto[];
-  recentClientes: Cliente[];
+  produtos: number
+  clientes: number
+  depoimentos: number
+  recentProdutos: Produto[]
+  recentClientes: Cliente[]
 }
 
 async function getStats(): Promise<Stats> {
@@ -54,51 +54,51 @@ async function getStats(): Promise<Stats> {
       prisma.depoimento.count({ where: { ativo: true } }),
       prisma.produto.findMany({
         where: { ativo: true },
-        orderBy: { updatedAt: "desc" },
+        orderBy: { updatedAt: 'desc' },
         take: 5,
       }),
       prisma.cliente.findMany({
         where: { ativo: true },
-        orderBy: { updatedAt: "desc" },
+        orderBy: { updatedAt: 'desc' },
         take: 5,
       }),
-    ]);
+    ])
 
-  return { produtos, clientes, depoimentos, recentProdutos, recentClientes };
+  return { produtos, clientes, depoimentos, recentProdutos, recentClientes }
 }
 
 export default async function AdminDashboard() {
-  const stats = await getStats();
+  const stats = await getStats()
 
   const cards = [
     {
-      name: "Produtos",
+      name: 'Produtos',
       value: stats.produtos,
       icon: Package,
-      href: "/admin/produtos",
-      color: "from-blue-500/20 to-blue-600/5",
-      iconColor: "text-blue-400",
-      borderColor: "border-blue-500/20",
+      href: '/admin/produtos',
+      color: 'from-blue-500/20 to-blue-600/5',
+      iconColor: 'text-blue-400',
+      borderColor: 'border-blue-500/20',
     },
     {
-      name: "Clientes",
+      name: 'Clientes',
       value: stats.clientes,
       icon: Users,
-      href: "/admin/clientes",
-      color: "from-emerald-500/20 to-emerald-600/5",
-      iconColor: "text-emerald-400",
-      borderColor: "border-emerald-500/20",
+      href: '/admin/clientes',
+      color: 'from-emerald-500/20 to-emerald-600/5',
+      iconColor: 'text-emerald-400',
+      borderColor: 'border-emerald-500/20',
     },
     {
-      name: "Depoimentos",
+      name: 'Depoimentos',
       value: stats.depoimentos,
       icon: MessageSquare,
-      href: "/admin/depoimentos",
-      color: "from-purple-500/20 to-purple-600/5",
-      iconColor: "text-purple-400",
-      borderColor: "border-purple-500/20",
+      href: '/admin/depoimentos',
+      color: 'from-purple-500/20 to-purple-600/5',
+      iconColor: 'text-purple-400',
+      borderColor: 'border-purple-500/20',
     },
-  ];
+  ]
 
   return (
     <div className="min-h-screen p-8">
@@ -112,7 +112,7 @@ export default async function AdminDashboard() {
 
       {/* Stats Cards */}
       <div className="mb-8 grid gap-6 md:grid-cols-3">
-        {cards.map((card) => (
+        {cards.map(card => (
           <Link
             key={card.name}
             href={card.href}
@@ -169,7 +169,7 @@ export default async function AdminDashboard() {
                 Nenhum produto cadastrado
               </p>
             ) : (
-              stats.recentProdutos.map((produto) => (
+              stats.recentProdutos.map(produto => (
                 <Link
                   key={produto.id}
                   href={`/admin/produtos/${produto.id}`}
@@ -183,7 +183,7 @@ export default async function AdminDashboard() {
                     />
                   ) : (
                     <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-800 text-2xl">
-                      {produto.icone || "📦"}
+                      {produto.icone || '📦'}
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
@@ -225,7 +225,7 @@ export default async function AdminDashboard() {
                 Nenhum cliente cadastrado
               </p>
             ) : (
-              stats.recentClientes.map((cliente) => (
+              stats.recentClientes.map(cliente => (
                 <Link
                   key={cliente.id}
                   href={`/admin/clientes/${cliente.id}`}
@@ -304,5 +304,5 @@ export default async function AdminDashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }

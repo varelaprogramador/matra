@@ -1,38 +1,38 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
-  Plus,
-  Pencil,
-  Trash2,
   Eye,
   EyeOff,
-  MoreHorizontal,
-  Search,
-  LayoutGrid,
-  List,
-  Users,
-  User,
-  Linkedin,
   Github,
+  LayoutGrid,
+  Linkedin,
+  List,
   Mail,
-} from "lucide-react";
+  MoreHorizontal,
+  Pencil,
+  Plus,
+  Search,
+  Trash2,
+  User,
+  Users,
+} from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface MembroEquipe {
-  id: string;
-  nome: string;
-  cargo: string;
-  descricao: string | null;
-  foto: string | null;
-  linkedin: string | null;
-  github: string | null;
-  email: string | null;
-  ordem: number;
-  ativo: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  nome: string
+  cargo: string
+  descricao: string | null
+  foto: string | null
+  linkedin: string | null
+  github: string | null
+  email: string | null
+  ordem: number
+  ativo: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 // Skeleton components for loading state
@@ -56,7 +56,7 @@ function GridSkeleton() {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 function ListSkeleton() {
@@ -65,11 +65,21 @@ function ListSkeleton() {
       <table className="w-full">
         <thead className="border-b border-zinc-800 bg-zinc-900/50">
           <tr>
-            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Membro</th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Cargo</th>
-            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Links</th>
-            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
-            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">
+              Membro
+            </th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">
+              Cargo
+            </th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">
+              Links
+            </th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">
+              Status
+            </th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">
+              Acoes
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-zinc-800">
@@ -104,58 +114,64 @@ function ListSkeleton() {
         </tbody>
       </table>
     </div>
-  );
+  )
 }
 
-export function EquipeClient({ membros, isLoading = false }: { membros: MembroEquipe[]; isLoading?: boolean }) {
-  const router = useRouter();
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [menuOpen, setMenuOpen] = useState<string | null>(null);
+export function EquipeClient({
+  membros,
+  isLoading = false,
+}: {
+  membros: MembroEquipe[]
+  isLoading?: boolean
+}) {
+  const router = useRouter()
+  const [view, setView] = useState<'grid' | 'list'>('grid')
+  const [search, setSearch] = useState('')
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [menuOpen, setMenuOpen] = useState<string | null>(null)
 
   const filteredMembros = membros.filter(
-    (m) =>
+    m =>
       m.nome.toLowerCase().includes(search.toLowerCase()) ||
       m.cargo.toLowerCase().includes(search.toLowerCase()) ||
-      (m.descricao && m.descricao.toLowerCase().includes(search.toLowerCase()))
-  );
+      (m.descricao && m.descricao.toLowerCase().includes(search.toLowerCase())),
+  )
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir este membro?")) return;
+    if (!confirm('Tem certeza que deseja excluir este membro?')) return
 
-    setDeletingId(id);
+    setDeletingId(id)
     try {
       const response = await fetch(`/api/equipe/${id}`, {
-        method: "DELETE",
-      });
+        method: 'DELETE',
+      })
 
-      if (!response.ok) throw new Error("Erro ao excluir");
-      router.refresh();
+      if (!response.ok) throw new Error('Erro ao excluir')
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao excluir membro");
+      console.error('Erro:', error)
+      alert('Erro ao excluir membro')
     } finally {
-      setDeletingId(null);
-      setMenuOpen(null);
+      setDeletingId(null)
+      setMenuOpen(null)
     }
-  };
+  }
 
   const toggleStatus = async (membro: MembroEquipe) => {
     try {
       const response = await fetch(`/api/equipe/${membro.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ativo: !membro.ativo }),
-      });
+      })
 
-      if (!response.ok) throw new Error("Erro ao atualizar");
-      router.refresh();
+      if (!response.ok) throw new Error('Erro ao atualizar')
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
+      console.error('Erro:', error)
     }
-    setMenuOpen(null);
-  };
+    setMenuOpen(null)
+  }
 
   return (
     <div className="p-8">
@@ -163,9 +179,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Equipe</h1>
-          <p className="text-zinc-400">
-            {membros.length} membros cadastrados
-          </p>
+          <p className="text-zinc-400">{membros.length} membros cadastrados</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -174,7 +188,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               placeholder="Buscar membros..."
               className="w-64 rounded-lg border border-zinc-800 bg-zinc-900 py-2 pl-10 pr-4 text-sm text-white placeholder-zinc-500 focus:border-zinc-700 focus:outline-none"
             />
@@ -182,21 +196,21 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
 
           <div className="flex rounded-lg border border-zinc-800 bg-zinc-900">
             <button
-              onClick={() => setView("grid")}
+              onClick={() => setView('grid')}
               className={`p-2 ${
-                view === "grid"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-500 hover:text-white"
+                view === 'grid'
+                  ? 'bg-zinc-800 text-white'
+                  : 'text-zinc-500 hover:text-white'
               }`}
             >
               <LayoutGrid className="h-4 w-4" />
             </button>
             <button
-              onClick={() => setView("list")}
+              onClick={() => setView('list')}
               className={`p-2 ${
-                view === "list"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-500 hover:text-white"
+                view === 'list'
+                  ? 'bg-zinc-800 text-white'
+                  : 'text-zinc-500 hover:text-white'
               }`}
             >
               <List className="h-4 w-4" />
@@ -214,7 +228,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
       </div>
 
       {/* Grid View */}
-      {view === "grid" && (
+      {view === 'grid' && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredMembros.length === 0 ? (
             <div className="col-span-full py-12 text-center">
@@ -229,7 +243,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
               </Link>
             </div>
           ) : (
-            filteredMembros.map((membro) => (
+            filteredMembros.map(membro => (
               <div
                 key={membro.id}
                 className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition-all hover:border-zinc-700 hover:bg-zinc-900"
@@ -319,9 +333,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
                     {membro.github && (
                       <Github className="h-4 w-4 text-zinc-500" />
                     )}
-                    {membro.email && (
-                      <Mail className="h-4 w-4 text-zinc-500" />
-                    )}
+                    {membro.email && <Mail className="h-4 w-4 text-zinc-500" />}
                   </div>
                 </Link>
               </div>
@@ -331,7 +343,7 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
       )}
 
       {/* List View */}
-      {view === "list" && (
+      {view === 'list' && (
         <div className="overflow-hidden rounded-xl border border-zinc-800">
           <table className="w-full">
             <thead className="border-b border-zinc-800 bg-zinc-900/50">
@@ -356,12 +368,15 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
             <tbody className="divide-y divide-zinc-800">
               {filteredMembros.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-zinc-500">
+                  <td
+                    colSpan={5}
+                    className="px-4 py-8 text-center text-zinc-500"
+                  >
                     Nenhum membro encontrado
                   </td>
                 </tr>
               ) : (
-                filteredMembros.map((membro) => (
+                filteredMembros.map(membro => (
                   <tr
                     key={membro.id}
                     className="bg-zinc-900/30 hover:bg-zinc-900/50"
@@ -409,11 +424,11 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
                       <span
                         className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
                           membro.ativo
-                            ? "bg-green-500/10 text-green-500"
-                            : "bg-zinc-500/10 text-zinc-500"
+                            ? 'bg-green-500/10 text-green-500'
+                            : 'bg-zinc-500/10 text-zinc-500'
                         }`}
                       >
-                        {membro.ativo ? "Ativo" : "Inativo"}
+                        {membro.ativo ? 'Ativo' : 'Inativo'}
                       </span>
                     </td>
                     <td className="px-4 py-3">
@@ -445,5 +460,5 @@ export function EquipeClient({ membros, isLoading = false }: { membros: MembroEq
         <div className="fixed inset-0 z-0" onClick={() => setMenuOpen(null)} />
       )}
     </div>
-  );
+  )
 }

@@ -1,61 +1,62 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { ptBR } from "@clerk/localizations";
-import { Toaster } from "sonner";
-import "./globals.css";
+import './globals.css'
+
+import { ptBR } from '@clerk/localizations'
+import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "MATRA Tecnologia | Landing Pages, Sistemas e Sites Premium",
+  title: 'MATRA Tecnologia | Landing Pages, Sistemas e Sites Premium',
   description:
-    "Desenvolvemos landing pages de alta conversao, sistemas sob medida e sites institucionais premium. Tecnologia que transforma resultados.",
+    'Desenvolvemos landing pages de alta conversao, sistemas sob medida e sites institucionais premium. Tecnologia que transforma resultados.',
   keywords: [
-    "landing page",
-    "desenvolvimento web",
-    "sistemas sob medida",
-    "site institucional",
-    "alta conversao",
-    "tecnologia",
-    "MATRA",
+    'landing page',
+    'desenvolvimento web',
+    'sistemas sob medida',
+    'site institucional',
+    'alta conversao',
+    'tecnologia',
+    'MATRA',
   ],
-  authors: [{ name: "MATRA Tecnologia" }],
+  authors: [{ name: 'MATRA Tecnologia' }],
   openGraph: {
-    title: "MATRA Tecnologia | Tecnologia que Transforma Resultados",
+    title: 'MATRA Tecnologia | Tecnologia que Transforma Resultados',
     description:
-      "Landing pages de alta conversao, sistemas sob medida e sites institucionais premium para empresas que exigem excelencia.",
-    url: "https://matra.tech",
-    siteName: "MATRA Tecnologia",
-    locale: "pt_BR",
-    type: "website",
+      'Landing pages de alta conversao, sistemas sob medida e sites institucionais premium para empresas que exigem excelencia.',
+    url: 'https://matra.tech',
+    siteName: 'MATRA Tecnologia',
+    locale: 'pt_BR',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "MATRA Tecnologia | Tecnologia que Transforma Resultados",
+    card: 'summary_large_image',
+    title: 'MATRA Tecnologia | Tecnologia que Transforma Resultados',
     description:
-      "Landing pages de alta conversao, sistemas sob medida e sites institucionais premium.",
+      'Landing pages de alta conversao, sistemas sob medida e sites institucionais premium.',
   },
   robots: {
     index: true,
     follow: true,
   },
-};
+}
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  width: "device-width",
+  themeColor: '#000000',
+  width: 'device-width',
   initialScale: 1,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <ClerkProvider localization={ptBR}>
@@ -68,14 +69,14 @@ export default function RootLayout({
             position="top-center"
             toastOptions={{
               style: {
-                background: "#18181b",
-                border: "1px solid #27272a",
-                color: "#fff",
+                background: '#18181b',
+                border: '1px solid #27272a',
+                color: '#fff',
               },
             }}
           />
         </body>
       </html>
     </ClerkProvider>
-  );
+  )
 }

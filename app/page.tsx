@@ -1,23 +1,24 @@
-import { Navbar } from "@/components/ui/navbar";
-import { Hero } from "@/components/sections/hero";
-import { SocialProofDynamic } from "@/components/sections/social-proof-dynamic";
-import { About } from "@/components/sections/about";
-import { Services } from "@/components/sections/services";
-import { ProductsDynamic } from "@/components/sections/products-dynamic";
-import { Differentials } from "@/components/sections/differentials";
-import { Process } from "@/components/sections/process";
-import { TeamDynamic } from "@/components/sections/team-dynamic";
-import { TestimonialsDynamic } from "@/components/sections/testimonials-dynamic";
-import { CTAFinal } from "@/components/sections/cta-final";
-import { Footer } from "@/components/sections/footer";
-import { FullpageScroll } from "@/components/ui/fullpage-scroll";
-import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { About } from '@/components/sections/about'
+import { CTAFinal } from '@/components/sections/cta-final'
+import { Differentials } from '@/components/sections/differentials'
+import { Footer } from '@/components/sections/footer'
+import { Hero } from '@/components/sections/hero'
+import { Process } from '@/components/sections/process'
+import { ProductsDynamic } from '@/components/sections/products-dynamic'
+import { Services } from '@/components/sections/services'
+import { SocialProofDynamic } from '@/components/sections/social-proof-dynamic'
+import { TeamDynamic } from '@/components/sections/team-dynamic'
+import { TestimonialsDynamic } from '@/components/sections/testimonials-dynamic'
+import { FullpageScroll } from '@/components/ui/fullpage-scroll'
+import { Navbar } from '@/components/ui/navbar'
+import { WhatsAppButton } from '@/components/ui/whatsapp-button'
+
 import {
-  getProdutosAtivos,
   getClientesAtivos,
   getDepoimentosAtivos,
   getMembrosEquipeAtivos,
-} from "@/lib/data";
+  getProdutosAtivos,
+} from '@/lib/data'
 
 export default async function Home() {
   // Fetch data from database
@@ -26,15 +27,15 @@ export default async function Home() {
     getClientesAtivos(),
     getDepoimentosAtivos(),
     getMembrosEquipeAtivos(),
-  ]);
+  ])
 
   const sections = [
     {
-      id: "inicio",
+      id: 'inicio',
       component: <Hero />,
     },
     {
-      id: "sobre",
+      id: 'sobre',
       component: (
         <div className="h-screen overflow-y-auto bg-black">
           <SocialProofDynamic clientes={clientes} />
@@ -43,38 +44,38 @@ export default async function Home() {
       ),
     },
     {
-      id: "servicos",
+      id: 'servicos',
       component: <Services />,
     },
     {
-      id: "produtos",
+      id: 'produtos',
       component: <ProductsDynamic produtos={produtos} />,
     },
     {
-      id: "diferenciais",
+      id: 'diferenciais',
       component: <Differentials />,
     },
     {
-      id: "processo",
+      id: 'processo',
       component: <Process />,
     },
     {
-      id: "equipe",
+      id: 'equipe',
       component: <TeamDynamic membros={membrosEquipe} />,
     },
     {
-      id: "depoimentos",
+      id: 'depoimentos',
       component: <TestimonialsDynamic depoimentos={depoimentos} />,
     },
     {
-      id: "contato",
+      id: 'contato',
       component: <CTAFinal />,
     },
     {
-      id: "footer",
+      id: 'footer',
       component: <Footer />,
     },
-  ];
+  ]
 
   return (
     <>
@@ -82,5 +83,5 @@ export default async function Home() {
       <FullpageScroll sections={sections} transitionDuration={0.6} />
       <WhatsAppButton />
     </>
-  );
+  )
 }

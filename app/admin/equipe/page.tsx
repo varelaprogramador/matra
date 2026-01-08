@@ -1,15 +1,15 @@
-import { prisma } from "@/lib/prisma";
-import { EquipeClient } from "./client";
+import { prisma } from '@/lib/prisma'
+import { EquipeClient } from './client'
 
 async function getMembros() {
   const membros = await prisma.membroEquipe.findMany({
-    orderBy: { ordem: "asc" },
-  });
-  return membros;
+    orderBy: { ordem: 'asc' },
+  })
+  return membros
 }
 
 export default async function EquipePage() {
-  const membros = await getMembros();
+  const membros = await getMembros()
 
-  return <EquipeClient membros={membros} />;
+  return <EquipeClient membros={membros} />
 }

@@ -1,38 +1,37 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
-  Plus,
-  Pencil,
-  Trash2,
   ExternalLink,
   Eye,
   EyeOff,
-  Star,
-  MoreHorizontal,
-  Search,
   LayoutGrid,
   List,
-  Package,
-} from "lucide-react";
+  MoreHorizontal,
+  Pencil,
+  Plus,
+  Search,
+  Star,
+  Trash2,
+} from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface Produto {
-  id: string;
-  nome: string;
-  descricao: string;
-  descricaoLonga: string | null;
-  icone: string | null;
-  imagem: string | null;
-  imagens: string[];
-  link: string | null;
-  tecnologias: string[];
-  destaque: boolean;
-  ordem: number;
-  ativo: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  nome: string
+  descricao: string
+  descricaoLonga: string | null
+  icone: string | null
+  imagem: string | null
+  imagens: string[]
+  link: string | null
+  tecnologias: string[]
+  destaque: boolean
+  ordem: number
+  ativo: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 // Skeleton components for loading state
@@ -60,7 +59,7 @@ function GridSkeleton() {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 function ListSkeleton() {
@@ -69,11 +68,21 @@ function ListSkeleton() {
       <table className="w-full">
         <thead className="border-b border-zinc-800 bg-zinc-900/50">
           <tr>
-            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Produto</th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">Tecnologias</th>
-            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Ordem</th>
-            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">Status</th>
-            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">Acoes</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">
+              Produto
+            </th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-zinc-400">
+              Tecnologias
+            </th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">
+              Ordem
+            </th>
+            <th className="px-4 py-3 text-center text-sm font-medium text-zinc-400">
+              Status
+            </th>
+            <th className="px-4 py-3 text-right text-sm font-medium text-zinc-400">
+              Acoes
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-zinc-800">
@@ -91,7 +100,10 @@ function ListSkeleton() {
               <td className="px-4 py-3">
                 <div className="flex gap-1">
                   {[...Array(2)].map((_, j) => (
-                    <div key={j} className="h-5 w-12 rounded-full bg-zinc-800/50" />
+                    <div
+                      key={j}
+                      className="h-5 w-12 rounded-full bg-zinc-800/50"
+                    />
                   ))}
                 </div>
               </td>
@@ -112,60 +124,69 @@ function ListSkeleton() {
         </tbody>
       </table>
     </div>
-  );
+  )
 }
 
-export function ProdutosClient({ produtos, isLoading = false }: { produtos: Produto[]; isLoading?: boolean }) {
-  const router = useRouter();
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [menuOpen, setMenuOpen] = useState<string | null>(null);
+export function ProdutosClient({
+  produtos,
+  isLoading = false,
+}: {
+  produtos: Produto[]
+  isLoading?: boolean
+}) {
+  const router = useRouter()
+  const [view, setView] = useState<'grid' | 'list'>('grid')
+  const [search, setSearch] = useState('')
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [menuOpen, setMenuOpen] = useState<string | null>(null)
 
   const filteredProdutos = produtos.filter(
-    (p) =>
+    p =>
       p.nome.toLowerCase().includes(search.toLowerCase()) ||
-      p.descricao.toLowerCase().includes(search.toLowerCase())
-  );
+      p.descricao.toLowerCase().includes(search.toLowerCase()),
+  )
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+    if (!confirm('Tem certeza que deseja excluir este produto?')) return
 
-    setDeletingId(id);
+    setDeletingId(id)
     try {
       const response = await fetch(`/api/produtos/${id}`, {
-        method: "DELETE",
-      });
+        method: 'DELETE',
+      })
 
       if (!response.ok) {
-        throw new Error("Erro ao excluir produto");
+        throw new Error('Erro ao excluir produto')
       }
 
-      router.refresh();
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao excluir produto");
+      console.error('Erro:', error)
+      alert('Erro ao excluir produto')
     } finally {
-      setDeletingId(null);
-      setMenuOpen(null);
+      setDeletingId(null)
+      setMenuOpen(null)
     }
-  };
+  }
 
-  const toggleStatus = async (produto: Produto, field: "ativo" | "destaque") => {
+  const toggleStatus = async (
+    produto: Produto,
+    field: 'ativo' | 'destaque',
+  ) => {
     try {
       const response = await fetch(`/api/produtos/${produto.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ [field]: !produto[field] }),
-      });
+      })
 
-      if (!response.ok) throw new Error("Erro ao atualizar");
-      router.refresh();
+      if (!response.ok) throw new Error('Erro ao atualizar')
+      router.refresh()
     } catch (error) {
-      console.error("Erro:", error);
+      console.error('Erro:', error)
     }
-    setMenuOpen(null);
-  };
+    setMenuOpen(null)
+  }
 
   return (
     <div className="p-8">
@@ -185,7 +206,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               placeholder="Buscar produtos..."
               className="w-64 rounded-lg border border-zinc-800 bg-zinc-900 py-2 pl-10 pr-4 text-sm text-white placeholder-zinc-500 focus:border-zinc-700 focus:outline-none"
             />
@@ -194,21 +215,21 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
           {/* View Toggle */}
           <div className="flex rounded-lg border border-zinc-800 bg-zinc-900">
             <button
-              onClick={() => setView("grid")}
+              onClick={() => setView('grid')}
               className={`p-2 ${
-                view === "grid"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-500 hover:text-white"
+                view === 'grid'
+                  ? 'bg-zinc-800 text-white'
+                  : 'text-zinc-500 hover:text-white'
               }`}
             >
               <LayoutGrid className="h-4 w-4" />
             </button>
             <button
-              onClick={() => setView("list")}
+              onClick={() => setView('list')}
               className={`p-2 ${
-                view === "list"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-500 hover:text-white"
+                view === 'list'
+                  ? 'bg-zinc-800 text-white'
+                  : 'text-zinc-500 hover:text-white'
               }`}
             >
               <List className="h-4 w-4" />
@@ -227,7 +248,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
       </div>
 
       {/* Grid View */}
-      {view === "grid" && (
+      {view === 'grid' && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProdutos.length === 0 ? (
             <div className="col-span-full py-12 text-center">
@@ -241,7 +262,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
               </Link>
             </div>
           ) : (
-            filteredProdutos.map((produto) => (
+            filteredProdutos.map(produto => (
               <div
                 key={produto.id}
                 className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 transition-all hover:border-zinc-700 hover:bg-zinc-900"
@@ -259,7 +280,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                     </div>
                   ) : (
                     <div className="flex h-40 items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900">
-                      <span className="text-6xl">{produto.icone || "📦"}</span>
+                      <span className="text-6xl">{produto.icone || '📦'}</span>
                     </div>
                   )}
                 </Link>
@@ -309,7 +330,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                         </a>
                       )}
                       <button
-                        onClick={() => toggleStatus(produto, "ativo")}
+                        onClick={() => toggleStatus(produto, 'ativo')}
                         className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-zinc-300 hover:bg-zinc-800"
                       >
                         {produto.ativo ? (
@@ -323,13 +344,13 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                         )}
                       </button>
                       <button
-                        onClick={() => toggleStatus(produto, "destaque")}
+                        onClick={() => toggleStatus(produto, 'destaque')}
                         className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-zinc-300 hover:bg-zinc-800"
                       >
                         <Star className="h-4 w-4" />
                         {produto.destaque
-                          ? "Remover Destaque"
-                          : "Marcar Destaque"}
+                          ? 'Remover Destaque'
+                          : 'Marcar Destaque'}
                       </button>
                       <hr className="border-zinc-800" />
                       <button
@@ -361,23 +382,24 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                       </p>
 
                       {/* Technologies */}
-                      {produto.tecnologias && produto.tecnologias.length > 0 && (
-                        <div className="mt-3 flex flex-wrap gap-1">
-                          {produto.tecnologias.slice(0, 3).map((tech) => (
-                            <span
-                              key={tech}
-                              className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                          {produto.tecnologias.length > 3 && (
-                            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-500">
-                              +{produto.tecnologias.length - 3}
-                            </span>
-                          )}
-                        </div>
-                      )}
+                      {produto.tecnologias &&
+                        produto.tecnologias.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-1">
+                            {produto.tecnologias.slice(0, 3).map(tech => (
+                              <span
+                                key={tech}
+                                className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                            {produto.tecnologias.length > 3 && (
+                              <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-500">
+                                +{produto.tecnologias.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
                     </div>
                   </div>
                 </Link>
@@ -388,7 +410,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
       )}
 
       {/* List View */}
-      {view === "list" && (
+      {view === 'list' && (
         <div className="overflow-hidden rounded-xl border border-zinc-800">
           <table className="w-full">
             <thead className="border-b border-zinc-800 bg-zinc-900/50">
@@ -421,7 +443,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                   </td>
                 </tr>
               ) : (
-                filteredProdutos.map((produto) => (
+                filteredProdutos.map(produto => (
                   <tr
                     key={produto.id}
                     className="bg-zinc-900/30 hover:bg-zinc-900/50"
@@ -439,7 +461,7 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                           />
                         ) : (
                           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-xl">
-                            {produto.icone || "📦"}
+                            {produto.icone || '📦'}
                           </span>
                         )}
                         <div>
@@ -454,19 +476,21 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
-                        {produto.tecnologias && produto.tecnologias.slice(0, 2).map((tech) => (
-                          <span
-                            key={tech}
-                            className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {produto.tecnologias && produto.tecnologias.length > 2 && (
-                          <span className="text-xs text-zinc-500">
-                            +{produto.tecnologias.length - 2}
-                          </span>
-                        )}
+                        {produto.tecnologias &&
+                          produto.tecnologias.slice(0, 2).map(tech => (
+                            <span
+                              key={tech}
+                              className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        {produto.tecnologias &&
+                          produto.tecnologias.length > 2 && (
+                            <span className="text-xs text-zinc-500">
+                              +{produto.tecnologias.length - 2}
+                            </span>
+                          )}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -479,11 +503,11 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
                         <span
                           className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
                             produto.ativo
-                              ? "bg-green-500/10 text-green-500"
-                              : "bg-zinc-500/10 text-zinc-500"
+                              ? 'bg-green-500/10 text-green-500'
+                              : 'bg-zinc-500/10 text-zinc-500'
                           }`}
                         >
-                          {produto.ativo ? "Ativo" : "Inativo"}
+                          {produto.ativo ? 'Ativo' : 'Inativo'}
                         </span>
                         {produto.destaque && (
                           <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
@@ -527,11 +551,8 @@ export function ProdutosClient({ produtos, isLoading = false }: { produtos: Prod
 
       {/* Click outside to close menu */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 z-0"
-          onClick={() => setMenuOpen(null)}
-        />
+        <div className="fixed inset-0 z-0" onClick={() => setMenuOpen(null)} />
       )}
     </div>
-  );
+  )
 }
