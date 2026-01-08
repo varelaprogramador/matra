@@ -3,8 +3,6 @@
 # =========================
 FROM node:20-bullseye AS base
 WORKDIR /app
-
-# Evita problemas com OpenSSL / Prisma
 ENV NODE_ENV=production
 
 # =========================
@@ -12,7 +10,11 @@ ENV NODE_ENV=production
 # =========================
 FROM base AS deps
 
+# Copia package files
 COPY package.json package-lock.json* ./
+
+# 🔥 COPIA O PRISMA ANTES DO npm ci
+COPY prisma ./prisma
 
 RUN npm ci
 
@@ -26,19 +28,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Prisma precisa do DATABASE_URL no build
-# (não define aqui — será injetado pelo ambiente)
 RUN npm run build
 
 # =========================
-# Runner (produção)
+# Runner
 # =========================
 FROM node:20-bullseye AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Apenas o necessário para rodar
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
