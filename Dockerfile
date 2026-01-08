@@ -10,10 +10,7 @@ ENV NODE_ENV=production
 # =========================
 FROM base AS deps
 
-# Copia package files
 COPY package.json package-lock.json* ./
-
-# 🔥 COPIA O PRISMA ANTES DO npm ci
 COPY prisma ./prisma
 
 RUN npm ci
@@ -22,8 +19,6 @@ RUN npm ci
 # Builder
 # =========================
 FROM base AS builder
-
-WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
