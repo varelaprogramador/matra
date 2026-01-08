@@ -39,11 +39,17 @@ ENV NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=$NEXT_PUBLIC_CLERK_SIGN_UP_F
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Generate Prisma client
+RUN pnpm prisma generate
+
 RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
+
+# Add runtime dependencies for Prisma on Alpine
+RUN apk add --no-cache libc6-compat openssl
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -52,6 +58,9 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+
+# Copy Prisma generated client
+COPY --from=builder --chown=nextjs:nodejs /app/app/generated ./app/generated
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
